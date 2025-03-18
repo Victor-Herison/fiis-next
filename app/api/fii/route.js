@@ -48,8 +48,12 @@ export async function GET(req) {
 
         const fiis = await getAllFiis();
         const filteredFiis = await fillterFiis(fiis, segmento, dy, pvp);
-        return Response.json(sortFiis(filteredFiis));
-
+        if(await filteredFiis.length){
+            return Response.json(sortFiis(filteredFiis));
+        }else{
+            return Response.json({error: "não há FIIs com essas credenciais"}, {status : 404})
+        }
+        
     } catch (error) {
         return Response.json({ error: "Erro ao buscar FIIs" }, { status: 500 });
     }
