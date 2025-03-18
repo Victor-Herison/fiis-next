@@ -1,103 +1,97 @@
-import Image from "next/image";
+"use client";
 
+import { useState, useEffect } from "react";
+import css from "./globals.css";
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    const [fiis, setFiis] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [search, setSearch] = useState("");
+    const [filters, setFilters] = useState({
+        dy: 12,
+        pvp: 1,
+        segmento: "",
+    });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    useEffect(() => {
+        fetchFiis();
+    }, []);
+
+    async function fetchFiis() {
+        setLoading(true);
+        let url = search.length > 5
+            ? `/api/fii/${search.toUpperCase()}`
+            : `/api/fii?dy=${filters.dy}&pvp=${filters.pvp}&segmento=${filters.segmento}`;
+
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            setFiis(Array.isArray(data) ? data : [data]); // Garante que sempre seja um array
+        } catch (error) {
+            console.error("Erro ao buscar FIIs", error);
+            setFiis([]);
+        } finally {
+            setLoading(false);
+            setSearch("")
+        }
+    }
+
+    return (
+        <div>
+            <h1>FIIs</h1>
+            
+            {/* Input para busca por nome */}
+            <input
+                type="text"
+                placeholder="Buscar por nome (ex: MXRF11)"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+            {/* Inputs para filtros */}
+            <input
+                type="number"
+                placeholder="DY mínimo"
+                value={filters.dy}
+                onChange={(e) => setFilters({ ...filters, dy: e.target.value })}
+            />
+            <input
+                type="number"
+                placeholder="PVP máximo"
+                value={filters.pvp}
+                onChange={(e) => setFilters({ ...filters, pvp: e.target.value })}
+            />
+            <select
+                value={filters.segmento}
+                onChange={(e) => setFilters({ ...filters, segmento: e.target.value })}
+            >
+                <option value="">Todos segmentos</option>
+                <option value="Shoppings">Shoppings</option>
+                <option value="Logistica">Logística</option>
+                <option value="Titulos e Val. Mob">Títulos e Val. Mob</option>
+                <option value="Hibrido">Híbrido</option>
+                <option value="Lajes Corporativas">Lajes Corporativas</option>
+                <option value="Outros">Outros</option>
+            </select>
+
+            {/* Botão para buscar */}
+            <button onClick={fetchFiis} disabled={loading}>
+                {loading ? "Carregando..." : "Buscar"}
+            </button>
+
+            {/* Lista de FIIs */}
+            {loading ? (
+              <p className="skeleton-loader">Carregando...</p>
+                ) : fiis.length > 0 && fiis[0].error  ? (
+                    <h1>{fiis[0].error}</h1>
+                ) : (
+                    <ul>
+                        {fiis.map((fii) => (
+                            <li key={fii.papel}>
+                                {fii.papel} - DY: {fii.DY} - P/VP: {fii.PVP}
+                            </li>
+                        ))}
+                    </ul>
+                )}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }
