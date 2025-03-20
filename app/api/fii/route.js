@@ -36,6 +36,7 @@ function sortFiis(fiis){
      })
 }
 
+
 export async function GET(req) {
     try {
         await connectDB();

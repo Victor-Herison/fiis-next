@@ -1,7 +1,14 @@
 "use client";
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 import { useState, useEffect } from "react";
 import css from "./globals.css";
+import {options} from "@/utils/opitions";
+
+
+
+
 export default function Home() {
     const [fiis, setFiis] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -11,7 +18,8 @@ export default function Home() {
         pvp: 1,
         segmento: "",
     });
-
+    console.log(search)
+    
     useEffect(() => {
         fetchFiis();
     }, []);
@@ -37,15 +45,24 @@ export default function Home() {
 
     return (
         <div>
+
+            <Autocomplete
+                onInputChange={(event, value) => setSearch(value)}
+                disablePortal
+                options={options}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="FIIs"/>}
+            />
+
             <h1>FIIs</h1>
             
             {/* Input para busca por nome */}
-            <input
+            {/* <input
                 type="text"
                 placeholder="Buscar por nome (ex: MXRF11)"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-            />
+            /> */}
 
             {/* Inputs para filtros */}
             <input
