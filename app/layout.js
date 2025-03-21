@@ -1,5 +1,5 @@
 import Header from "@/components/header";
-
+import Footer from "@/components/footer";
 export const metadata = {
   title: "Filtros de Fii",
   description: "Site que filtra fundos imobiliarios.",
@@ -16,8 +16,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Header />
-        {children}
-        
+        <main className="bg-[#F9FAFB]">
+          {children}
+        </main>
+        <Footer />
         </body>
     </html>
   )
