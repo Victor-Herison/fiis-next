@@ -5,7 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useState, useEffect } from "react";
 import css from "./globals.css";
 import {options} from "@/utils/opitions";
-
+import Aviso from "@/components/aviso";
 
 
 
@@ -44,17 +44,53 @@ export default function Home() {
     }
 
     return (
-        <div>
+        <div className="mx-23 my-10">
+            <Aviso />
+            <form>
+                {/* DY */}
+                <input
+                    type="number"
+                    placeholder="DY mínimo"
+                    value={filters.dy}
+                    onChange={(e) => setFilters({ ...filters, dy: e.target.value })}
+                />
 
-            <Autocomplete
-                onInputChange={(event, value) => setSearch(value)}
+                {/* PVP */}
+                <input
+                    type="number"
+                    placeholder="PVP máximo"
+                    value={filters.pvp}
+                    onChange={(e) => setFilters({ ...filters, pvp: e.target.value })}
+                />
+                {/* SEGMENTO */}
+                 <select
+                    value={filters.segmento}
+                    onChange={(e) => setFilters({ ...filters, segmento: e.target.value })}
+                    >
+                    <option value="">Todos segmentos</option>
+                    <option value="Shoppings">Shoppings</option>
+                    <option value="Logistica">Logística</option>
+                    <option value="Titulos e Val. Mob">Títulos e Val. Mob</option>
+                    <option value="Hibrido">Híbrido</option>
+                    <option value="Lajes Corporativas">Lajes Corporativas</option>
+                    <option value="Outros">Outros</option>
+                    </select>
+
+                {/* Autocomplete */}
+                <Autocomplete
+                    onInputChange={(event, value) => setSearch(value)}
                 disablePortal
                 options={options}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="FIIs"/>}
-            />
-
-            <h1>FIIs</h1>
+                />
+                {/* Botão para buscar */}
+                <button onClick={fetchFiis} disabled={loading}>
+                    {loading ? "Carregando..." : "Buscar"}
+                </button>
+            </form>
+                
+                
             
             {/* Input para busca por nome */}
             {/* <input
@@ -65,36 +101,11 @@ export default function Home() {
             /> */}
 
             {/* Inputs para filtros */}
-            <input
-                type="number"
-                placeholder="DY mínimo"
-                value={filters.dy}
-                onChange={(e) => setFilters({ ...filters, dy: e.target.value })}
-            />
-            <input
-                type="number"
-                placeholder="PVP máximo"
-                value={filters.pvp}
-                onChange={(e) => setFilters({ ...filters, pvp: e.target.value })}
-            />
-            <select
-                value={filters.segmento}
-                onChange={(e) => setFilters({ ...filters, segmento: e.target.value })}
-            >
-                <option value="">Todos segmentos</option>
-                <option value="Shoppings">Shoppings</option>
-                <option value="Logistica">Logística</option>
-                <option value="Titulos e Val. Mob">Títulos e Val. Mob</option>
-                <option value="Hibrido">Híbrido</option>
-                <option value="Lajes Corporativas">Lajes Corporativas</option>
-                <option value="Outros">Outros</option>
-            </select>
+           
+            
+           
 
-            {/* Botão para buscar */}
-            <button onClick={fetchFiis} disabled={loading}>
-                {loading ? "Carregando..." : "Buscar"}
-            </button>
-
+            
             {/* Lista de FIIs */}
             {loading ? (
               <p className="skeleton-loader">Carregando...</p>
@@ -109,6 +120,7 @@ export default function Home() {
                         ))}
                     </ul>
                 )}
+                
         </div>
     );
 }
