@@ -56,6 +56,7 @@ export async function GET(req) {
         }
         
     } catch (error) {
+        console.error("❌ Erro ao buscar FIIs:", error);
         return Response.json({ error: "Erro ao buscar FIIs" }, { status: 500 });
     }
 }

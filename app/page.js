@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import { useState, useEffect } from "react";
-import css from "./globals.css";
+import "./globals.css";
 import {options} from "@/utils/opitions";
 import Aviso from "@/components/aviso";
 
@@ -16,7 +16,7 @@ export default function Home() {
     const [filters, setFilters] = useState({
         dy: 12,
         pvp: 1,
-        segmento: "",
+        segmento:"",
     });
     console.log(search)
     
@@ -46,50 +46,57 @@ export default function Home() {
     return (
         <div className="mx-23 my-10">
             <Aviso />
-            <form>
-                {/* DY */}
-                <input
-                    type="number"
-                    placeholder="DY mínimo"
-                    value={filters.dy}
-                    onChange={(e) => setFilters({ ...filters, dy: e.target.value })}
-                />
+            <div className="bg-[#33445B] p-4 rounded-md">
+                <form className="flex flex-row justify-between items-center">
+                    {/* DY */}
+                    <div className="bg-white p-2 rounded-md flex flex-row items-center gap-2">
+                        <label htmlFor="dy" className="text-md font-semibold">DY: </label>
+                        <input
+                        type="number"
+                        placeholder="DY mínimo"
+                        value={filters.dy}
+                        onChange={(e) => setFilters({ ...filters, dy: e.target.value })}
+                        className="w-10"
+                    />
+                    </div>
 
-                {/* PVP */}
-                <input
-                    type="number"
-                    placeholder="PVP máximo"
-                    value={filters.pvp}
-                    onChange={(e) => setFilters({ ...filters, pvp: e.target.value })}
-                />
-                {/* SEGMENTO */}
-                 <select
-                    value={filters.segmento}
-                    onChange={(e) => setFilters({ ...filters, segmento: e.target.value })}
-                    >
-                    <option value="">Todos segmentos</option>
-                    <option value="Shoppings">Shoppings</option>
-                    <option value="Logistica">Logística</option>
-                    <option value="Titulos e Val. Mob">Títulos e Val. Mob</option>
-                    <option value="Hibrido">Híbrido</option>
-                    <option value="Lajes Corporativas">Lajes Corporativas</option>
-                    <option value="Outros">Outros</option>
-                    </select>
+                    {/* PVP */}
+                    <label htmlFor="pvp">PVP: </label>
+                    <input
+                        type="number"
+                        placeholder="PVP máximo"
+                        value={filters.pvp}
+                        onChange={(e) => setFilters({ ...filters, pvp: e.target.value })}
+                    />
+                    {/* SEGMENTO */}
 
-                {/* Autocomplete */}
-                <Autocomplete
-                    onInputChange={(event, value) => setSearch(value)}
-                disablePortal
-                options={options}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="FIIs"/>}
-                />
-                {/* Botão para buscar */}
-                <button onClick={fetchFiis} disabled={loading}>
-                    {loading ? "Carregando..." : "Buscar"}
-                </button>
-            </form>
-                
+                    <select
+                        value={filters.segmento}
+                        onChange={(e) => setFilters({ ...filters, segmento: e.target.value })}
+                        >
+                        <option value="">Todos segmentos</option>
+                        <option value="Shoppings">Shoppings</option>
+                        <option value="Logistica">Logística</option>
+                        <option value="Titulos e Val. Mob">Títulos e Val. Mob</option>
+                        <option value="Hibrido">Híbrido</option>
+                        <option value="Lajes Corporativas">Lajes Corporativas</option>
+                        <option value="Outros">Outros</option>
+                        </select>
+
+                    {/* Autocomplete */}
+                    <Autocomplete
+                        onInputChange={(event, value) => setSearch(value)}
+                    disablePortal
+                    options={options}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} label="FIIs"/>}
+                    />
+                    {/* Botão para buscar */}
+                    <button onClick={fetchFiis} disabled={loading}>
+                        {loading ? "Carregando..." : "Filtrar"}
+                    </button>
+                </form>
+            </div>
                 
             
             {/* Input para busca por nome */}

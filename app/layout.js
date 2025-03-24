@@ -5,7 +5,7 @@ export const metadata = {
   description: "Site que filtra fundos imobiliarios.",
   keywords: "Fundos imobiliarios, filtro, investimento, dicas, FIIs, FII, fiis",
   icons: {
-    icon: "/icon.svg", // Caminho para o favicon
+    icon: "/favicon.png", // Caminho para o favicon
   },
 };
 
@@ -14,9 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-[#F9FAFB] p-0 m-0">
         <Header />
-        <main className="bg-[#F9FAFB]">
+        <main className="h-screen">
           {children}
         </main>
         <Footer />

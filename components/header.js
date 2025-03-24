@@ -6,7 +6,7 @@ export default function Header() {
         <header className='flex justify-between items-center p-4 bg-[#1F2937] h-23'>
             
             <a href="/" className='p-0 m-0'>
-                <img src="/Vector.png" alt="icon" width={70} height={70} className='ml-20 hover:cursor-pointer hover:scale-115 transition-all duration-300'/>
+                <img src="/favicon.png" alt="icon" width={70} height={70} className='ml-20 hover:cursor-pointer hover:scale-115 transition-all duration-300'/>
             </a>
             <nav className='flex gap-6 text-white mr-20 text-center flex-row justify-center items-center text-xl'>
                 <a href="/" className='hover:cursor-pointer hover:scale-110 hover:text-[#F59E0B] transition-all duration-300'>Filtros</a>
