@@ -11,7 +11,7 @@ import Aviso from "@/components/aviso";
 
 export default function Home() {
     const [fiis, setFiis] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [filters, setFilters] = useState({
         dy: 12,
@@ -27,8 +27,14 @@ export default function Home() {
         fetchFiis();
     }, []);
 
+    const handleSubmit = async(e) =>{
+        e.preventDefault()
+
+        await fetchFiis()
+    }
+
     async function fetchFiis() {
-        setLoading(true);
+
         let url = search.length > 5
             ? `/api/fii/${search.toUpperCase()}`
             : `/api/fii?dy=${filters.dy}&pvp=${filters.pvp}&segmento=${filters.segmento}`;
@@ -53,7 +59,7 @@ export default function Home() {
             
             
             <div className="bg-[#33445B] p-1 rounded-md shadow min-w-[1202px]">
-                <form className="flex flex-row justify-evenly items-center  gap-4 py-2 filter">
+                <form className="flex flex-row justify-evenly items-center  gap-4 py-2 filter" onSubmit={handleSubmit}>
 
                 {/* cotação minima */}
                 {/* <div className="bg-white p-1.5 rounded-md flex flex-row items-center gap-2 shadow h-9">
@@ -167,7 +173,7 @@ export default function Home() {
                     />
                     
                     {/* Botão para buscar */}
-                    <button onClick={fetchFiis} disabled={loading} className="bg-green-500/20 text-green-400 font-bold px-4 py-2 rounded-md border-1 w-40 cursor-pointer hover:bg-green-500/40 transition-all duration-300">
+                    <button type='submit' disabled={loading} className="bg-green-500/20 text-green-400 font-bold px-4 py-2 rounded-md border-1 w-40 cursor-pointer hover:bg-green-500/40 transition-all duration-300">
                         {loading ? "Carregando..." : "Filtrar"}
                     </button>
                 </form>
@@ -186,22 +192,29 @@ export default function Home() {
            
             
            
-
-            
             {/* Lista de FIIs */}
-            {loading ? (
-              <p className="skeleton-loader">Carregando...</p>
-                ) : fiis.length > 0 && fiis[0].error  ? (
-                    <h1>{fiis[0].error}</h1>
-                ) : (
-                    <ul>
-                        {fiis.map((fii) => (
-                            <li key={fii.papel}>
-                                {fii.papel} - DY: {fii.DY} - P/VP: {fii.PVP}
-                            </li>
-                        ))}
-                    </ul>
-                )}
+            <table className="w-full bg-white rounded-3xl shadow min-h-96 mt-5">
+                <thead className="bg-gray-500 flex flex-row justify-between flex-wrap rounded-t-3xl">
+                    <tr className="w-full flex flex-row">
+                        <th className={`h-10 rounded-t-3xl w-full p-1.5 ${loading ? "text-white bg-gray-500" : fiis.length > 0 && fiis[0].error ? "text-white bg-red-500" : "text-white bg-green-500"}`}>{loading ? (<p>Carregando...</p>) : fiis.length > 0 && fiis[0].error ? 
+                        (<p className="text-xl text-center">Não há FIIs com esses filtros</p>) : fiis.length > 0 ? 
+                        (<p className="text-xl text-center">{fiis.length} FIIs encontrados</p>) : (<p className="text-center w-full">Nenhum FII encontrado</p>)}</th>
+                    </tr>
+                    <tr>
+                        <th>Papel</th>
+                        <th>DY</th>
+                        <th>P/VP</th>
+                        <th>Segmento</th>
+                        <th>Patrimônio</th>
+                        <th>Vacância</th>
+                        <th>Imóveis</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+                
+            </table>
                 
         </div>
     );
