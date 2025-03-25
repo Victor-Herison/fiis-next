@@ -49,6 +49,7 @@ export default function Home() {
         } finally {
             setLoading(false);
             setSearch("")
+            
         }
     }
 
@@ -193,27 +194,38 @@ export default function Home() {
             
            
             {/* Lista de FIIs */}
-            <table className="w-full bg-white rounded-3xl shadow min-h-96 mt-5">
-                <thead className="bg-gray-500 flex flex-row justify-between flex-wrap rounded-t-3xl">
-                    <tr className="w-full flex flex-row">
-                        <th className={`h-10 rounded-t-3xl w-full p-1.5 ${loading ? "text-white bg-gray-500" : fiis.length > 0 && fiis[0].error ? "text-white bg-red-500" : "text-white bg-green-500"}`}>{loading ? (<p>Carregando...</p>) : fiis.length > 0 && fiis[0].error ? 
-                        (<p className="text-xl text-center">Não há FIIs com esses filtros</p>) : fiis.length > 0 ? 
-                        (<p className="text-xl text-center">{fiis.length} FIIs encontrados</p>) : (<p className="text-center w-full">Nenhum FII encontrado</p>)}</th>
-                    </tr>
+            <table className="w-full bg-white rounded-3xl shadow min-h-96 mt-7">
+                <thead className="bg-gray-500 rounded-t-3xl">
                     <tr>
-                        <th>Papel</th>
-                        <th>DY</th>
-                        <th>P/VP</th>
-                        <th>Segmento</th>
-                        <th>Patrimônio</th>
-                        <th>Vacância</th>
-                        <th>Imóveis</th>
+                        <th colSpan="7" className={`h-10 rounded-t-3xl w-full p-1.5 ${loading ? "text-white bg-gray-500" : fiis.length > 0 && fiis[0].error ? "text-white bg-red-500" : "text-white bg-green-500"}`}>
+                            {loading ? (<p>Carregando...</p>) : fiis.length > 0 && fiis[0].error ? 
+                            (<p className="text-xl text-center">Não há FIIs com esses filtros</p>) : fiis.length > 0 ? 
+                            (<p className="text-xl text-center">{fiis.length} FIIs encontrados</p>) : (<p className="text-center w-full">Nenhum FII encontrado</p>)}
+                        </th>
+                    </tr>
+                    <tr className="h-12 text-center text-lg text-white">
+                        <th className="w-[15%]">Papel</th>
+                        <th className="w-[12%]">DY</th>
+                        <th className="w-[12%]">P/VP</th>
+                        <th className="w-[20%]">Segmento</th>
+                        <th className="w-[15%]">Patrimônio</th>
+                        <th className="w-[13%]">Vacância</th>
+                        <th className="w-[13%]">Imóveis</th>
                     </tr>
                 </thead>
-                <tbody>
-
+                <tbody className="bg-black">
+                    {fiis.map((fii) => (
+                        <tr key={fii.papel} className="text-center text-lg text-black bg-amber-900">
+                            <td className="py-2 font-medium">{fii.papel}</td>
+                            <td className="py-2">{fii.DY}</td>
+                            <td className="py-2">{fii.PVP}</td>
+                            <td className="py-2">{fii.segmento}</td>
+                            <td className="py-2">{fii.liquidez}</td>
+                            <td className="py-2">{fii.vacanciaMedia}</td>
+                            <td className="py-2">{fii.qtdImoveis}</td>
+                        </tr>
+                    ))}
                 </tbody>
-                
             </table>
                 
         </div>
