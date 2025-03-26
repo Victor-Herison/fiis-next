@@ -61,7 +61,7 @@ export default function Home() {
             
             
             
-            <div className="bg-[#33445B] p-1 rounded-md shadow min-w-[1202px]">
+            <div className="bg-[#33445B] p-1 rounded-md shadow min-w-[1202px] mt-10">
                 <form className="flex flex-row justify-evenly items-center  gap-4 py-2 filter" onSubmit={handleSubmit}>
 
                 {/* cotação minima */}
@@ -108,7 +108,7 @@ export default function Home() {
                         onChange={(e) => setFilters({ ...filters, segmento: e.target.value })}
                         className={`cursor-pointer focus:outline-none ${filters.segmento === "Logistica" ? "text-[#10B981]" :
                             filters.segmento === "Shoppings" ? "text-[#3B82F6]" :
-                            filters.segmento === "Titulos e Val. Mob" ? "text-[#F59E0B]" :
+                            filters.segmento === "Titulos e Val. Mob." ? "text-[#F59E0B]" :
                             filters.segmento === "Hibrido" ? "text-[#8B5CF6]" :
                             filters.segmento === "Lajes Corporativas" ? "text-[#EF4444]" :
                             filters.segmento === "Outros" ? "text-[#3B82F6]" :
@@ -117,7 +117,7 @@ export default function Home() {
                         <option value="">Todos segmentos</option>
                         <option value="Shoppings" className='text-[#3B82F6]'>Shoppings</option>
                         <option value="Logistica" className='text-[#10B981]'>Logística</option>
-                        <option value="Titulos e Val. Mob" className='text-[#F59E0B]'>Títulos e Val. Mob</option>
+                        <option value="Titulos e Val. Mob." className='text-[#F59E0B]'>Títulos e Val. Mob</option>
                         <option value="Hibrido" className='text-[#8B5CF6]'>Híbrido</option>
                         <option value="Lajes Corporativas" className='text-[#EF4444]'>Lajes Corporativas</option>
                         <option value="Outros" className='text-gray-700'>Outros</option>
@@ -196,37 +196,44 @@ export default function Home() {
             
            
             {/* Lista de FIIs */}
-            <div className="w-full bg-white rounded-3xl shadow min-h-96 mt-7 overflow-auto">
+            <div className="w-full bg-white rounded-3xl shadow min-h-150  mt-7 overflow-auto">
                 <table className="w-full">
                     <thead className="bg-gray-500 rounded-t-3xl sticky top-0">
                         <tr>
-                            <th colSpan="7" className={`h-13 rounded-t-3xl w-full p-1.5 ${loading ? "text-white bg-gray-500" : fiis.length > 0 && fiis[0].error ? "text-white bg-red-500" : "text-white bg-green-500"}`}>
+                            <th colSpan="8" className={`h-13 rounded-t-3xl w-full p-1.5 ${loading ? "text-white bg-gray-500" : fiis.length > 0 && fiis[0].error ? "text-white bg-red-500" : "text-white bg-green-500"}`}>
                                 {loading ? (<p>Carregando...</p>) : fiis.length > 0 && fiis[0].error ? 
                                 (<p className="text-xl text-center">Não há FIIs com esses filtros</p>) : fiis.length > 0 ? 
                                 (<p className="text-xl text-center">{fiis.length} FIIs encontrados</p>) : (<p className="text-center w-full">Nenhum FII encontrado</p>)}
                             </th>
                         </tr>
                         <tr className="h-15 text-center text-lg text-white">
-                            <th className="w-[15%]">Papel</th>
+                            <th className="w-[12%]">Papel</th>
+                            <th className="w-[12%]">Cotação</th>
                             <th className="w-[12%]">DY</th>
                             <th className="w-[12%]">P/VP</th>
-                            <th className="w-[20%]">Segmento</th>
-                            <th className="w-[15%]">Patrimônio</th>
-                            <th className="w-[13%]">Vacância</th>
-                            <th className="w-[13%]">Imóveis</th>
+                            <th className="w-[12%]">Liquidez</th>
+                            <th className="w-[12%]">Imóveis</th>
+                            <th className="w-[12%]">Vacância média</th>
+                            <th className="w-[14%]">Segmento</th>
                         </tr>
                     </thead>
                     {fiis.length > 0 && fiis[0].error ? (<ErrorFilter />) : (
                     <tbody className="bg-black">
                         {fiis.map((fii) => (
-                            <tr key={fii.papel} className="text-center text-lg text-black bg-white shadow-2xl">
-                                <td className="py-2 font-medium">{fii.papel}</td>
-                                <td className="py-2">{fii.DY}</td>
-                                <td className="py-2">{fii.PVP}</td>
-                                <td className="py-2">{fii.segmento}</td>
-                                <td className="py-2">{fii.liquidez}</td>
-                                <td className="py-2">{fii.vacanciaMedia}</td>
-                                <td className="py-2">{fii.qtdImoveis}</td>
+                            <tr key={fii.papel} className="text-center text-lg text-black bg-white border-b-1 border-gray-200 hover:bg-gray-100 transition-all duration-300">
+                                <td className="py-2 font-medium border-r-1 border-gray-200">{fii.papel}</td>
+                                <td className="py-2 border-r-1 border-gray-200">R$ {fii.cotacao}</td>
+                                <td className={`py-2 border-r-1 border-gray-200 ${fii.DY >= 8 && fii.DY <= 13 ? "text-green-500" : "text-yellow-500"}`}>{fii.DY}%</td>
+                                <td className={`py-2 border-r-1 border-gray-200 ${fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-500" : "text-yellow-500"}`}>{fii.PVP}</td>                  
+                                <td className="py-2 border-r-1 border-gray-200">R$ {fii.liquidez}</td>                          
+                                <td className="py-2 border-r-1 border-gray-200">{fii.qtdImoveis}</td>
+                                <td className="py-2 border-r-1 border-gray-200">{fii.vacanciaMedia}%</td>
+                                <td className={`py-2 ${fii.segmento === "Logistica" ? "text-[#10B981]" :
+                                    fii.segmento === "Shoppings" ? "text-[#3B82F6]" :
+                                    fii.segmento === "Titulos e Val. Mob." ? "text-[#F59E0B]" :
+                                    fii.segmento === "Hibrido" ? "text-[#8B5CF6]" :
+                                    fii.segmento === "Lajes Corporativas" ? "text-[#EF4444]" :
+                                    "text-black"}`}>{fii.segmento}</td>
                             </tr>
                         ))}
                     </tbody>)}

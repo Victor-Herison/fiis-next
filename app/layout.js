@@ -1,5 +1,8 @@
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
+
 export const metadata = {
   title: "Filtros de Fii",
   description: "Site que filtra fundos imobiliarios.",
@@ -16,7 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="bg-[#F9FAFB] p-0 m-0">
         <Header />
-        <main className="h-screen">
+        <main>
           {children}
         </main>
         <Footer />
