@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import "./globals.css";
 import {options} from "@/utils/opitions";
 import Aviso from "@/components/aviso";
+import ErrorFilter from "@/components/ErrorFilter";
 
 
 
@@ -57,6 +58,7 @@ export default function Home() {
         <div className="xl:mx-10 mx-5 my-10">
 
             <Aviso />
+            
             
             
             <div className="bg-[#33445B] p-1 rounded-md shadow min-w-[1202px]">
@@ -194,39 +196,42 @@ export default function Home() {
             
            
             {/* Lista de FIIs */}
-            <table className="w-full bg-white rounded-3xl shadow min-h-96 mt-7">
-                <thead className="bg-gray-500 rounded-t-3xl">
-                    <tr>
-                        <th colSpan="7" className={`h-10 rounded-t-3xl w-full p-1.5 ${loading ? "text-white bg-gray-500" : fiis.length > 0 && fiis[0].error ? "text-white bg-red-500" : "text-white bg-green-500"}`}>
-                            {loading ? (<p>Carregando...</p>) : fiis.length > 0 && fiis[0].error ? 
-                            (<p className="text-xl text-center">Não há FIIs com esses filtros</p>) : fiis.length > 0 ? 
-                            (<p className="text-xl text-center">{fiis.length} FIIs encontrados</p>) : (<p className="text-center w-full">Nenhum FII encontrado</p>)}
-                        </th>
-                    </tr>
-                    <tr className="h-12 text-center text-lg text-white">
-                        <th className="w-[15%]">Papel</th>
-                        <th className="w-[12%]">DY</th>
-                        <th className="w-[12%]">P/VP</th>
-                        <th className="w-[20%]">Segmento</th>
-                        <th className="w-[15%]">Patrimônio</th>
-                        <th className="w-[13%]">Vacância</th>
-                        <th className="w-[13%]">Imóveis</th>
-                    </tr>
-                </thead>
-                <tbody className="bg-black">
-                    {fiis.map((fii) => (
-                        <tr key={fii.papel} className="text-center text-lg text-black bg-amber-900">
-                            <td className="py-2 font-medium">{fii.papel}</td>
-                            <td className="py-2">{fii.DY}</td>
-                            <td className="py-2">{fii.PVP}</td>
-                            <td className="py-2">{fii.segmento}</td>
-                            <td className="py-2">{fii.liquidez}</td>
-                            <td className="py-2">{fii.vacanciaMedia}</td>
-                            <td className="py-2">{fii.qtdImoveis}</td>
+            <div className="w-full bg-white rounded-3xl shadow min-h-96 mt-7 overflow-auto">
+                <table className="w-full">
+                    <thead className="bg-gray-500 rounded-t-3xl sticky top-0">
+                        <tr>
+                            <th colSpan="7" className={`h-13 rounded-t-3xl w-full p-1.5 ${loading ? "text-white bg-gray-500" : fiis.length > 0 && fiis[0].error ? "text-white bg-red-500" : "text-white bg-green-500"}`}>
+                                {loading ? (<p>Carregando...</p>) : fiis.length > 0 && fiis[0].error ? 
+                                (<p className="text-xl text-center">Não há FIIs com esses filtros</p>) : fiis.length > 0 ? 
+                                (<p className="text-xl text-center">{fiis.length} FIIs encontrados</p>) : (<p className="text-center w-full">Nenhum FII encontrado</p>)}
+                            </th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                        <tr className="h-15 text-center text-lg text-white">
+                            <th className="w-[15%]">Papel</th>
+                            <th className="w-[12%]">DY</th>
+                            <th className="w-[12%]">P/VP</th>
+                            <th className="w-[20%]">Segmento</th>
+                            <th className="w-[15%]">Patrimônio</th>
+                            <th className="w-[13%]">Vacância</th>
+                            <th className="w-[13%]">Imóveis</th>
+                        </tr>
+                    </thead>
+                    {fiis.length > 0 && fiis[0].error ? (<ErrorFilter />) : (
+                    <tbody className="bg-black">
+                        {fiis.map((fii) => (
+                            <tr key={fii.papel} className="text-center text-lg text-black bg-white shadow-2xl">
+                                <td className="py-2 font-medium">{fii.papel}</td>
+                                <td className="py-2">{fii.DY}</td>
+                                <td className="py-2">{fii.PVP}</td>
+                                <td className="py-2">{fii.segmento}</td>
+                                <td className="py-2">{fii.liquidez}</td>
+                                <td className="py-2">{fii.vacanciaMedia}</td>
+                                <td className="py-2">{fii.qtdImoveis}</td>
+                            </tr>
+                        ))}
+                    </tbody>)}
+                </table>
+            </div>
                 
         </div>
     );
