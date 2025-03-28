@@ -1,12 +1,15 @@
 "use client";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { DownloadTableExcel } from 'react-export-table-to-excel';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./globals.css";
 import {options} from "@/utils/opitions";
 import Aviso from "@/components/aviso";
 import ErrorFilter from "@/components/ErrorFilter";
+import { FIIsDropdown } from "@/components/FIIsDropdown";
+import { formatarMoeda, formatarNumero } from "@/utils/format";
 
 
 
@@ -22,6 +25,8 @@ export default function Home() {
         vacancia: 0,
         qtdImoveis: 0,
     });
+
+    const tableRef = useRef(null);
     console.log(search)
     
     useEffect(() => {
@@ -197,7 +202,7 @@ export default function Home() {
            
             {/* Lista de FIIs */}
             <div className="w-full bg-white rounded-3xl shadow min-h-150  mt-7 overflow-auto">
-                <table className="w-full">
+                <table className="w-full" ref={tableRef}>
                     <thead className="bg-gray-500 rounded-t-3xl sticky top-0">
                         <tr>
                             <th colSpan="8" className={`h-13 rounded-t-3xl w-full p-1.5 ${loading ? "text-white bg-gray-500" : fiis.length > 0 && fiis[0].error ? "text-white bg-red-500" : "text-white bg-green-500"}`}>
@@ -222,12 +227,12 @@ export default function Home() {
                         {fiis.map((fii) => (
                             <tr key={fii.papel} className="text-center text-lg text-black bg-white border-b-1 border-gray-200 hover:bg-gray-100 transition-all duration-300">
                                 <td className="py-2 font-medium border-r-1 border-gray-200">{fii.papel}</td>
-                                <td className="py-2 border-r-1 border-gray-200">R$ {fii.cotacao}</td>
+                                <td className="py-2 border-r-1 border-gray-200">{formatarMoeda(fii.cotacao)}</td>
                                 <td className={`py-2 border-r-1 border-gray-200 ${fii.DY >= 8 && fii.DY <= 13 ? "text-green-500" : "text-yellow-500"}`}>{fii.DY}%</td>
                                 <td className={`py-2 border-r-1 border-gray-200 ${fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-500" : "text-yellow-500"}`}>{fii.PVP}</td>                  
-                                <td className="py-2 border-r-1 border-gray-200">R$ {fii.liquidez}</td>                          
+                                <td className="py-2 border-r-1 border-gray-200">{formatarMoeda(fii.liquidez)}</td>                          
                                 <td className="py-2 border-r-1 border-gray-200">{fii.qtdImoveis}</td>
-                                <td className="py-2 border-r-1 border-gray-200">{fii.vacanciaMedia}%</td>
+                                <td className="py-2 border-r-1 border-gray-200">{formatarNumero(fii.vacanciaMedia)}%</td>
                                 <td className={`py-2 ${fii.segmento === "Logistica" ? "text-[#10B981]" :
                                     fii.segmento === "Shoppings" ? "text-[#3B82F6]" :
                                     fii.segmento === "Titulos e Val. Mob." ? "text-[#F59E0B]" :
@@ -236,10 +241,19 @@ export default function Home() {
                                     "text-black"}`}>{fii.segmento}</td>
                             </tr>
                         ))}
+                       
                     </tbody>)}
-                </table>
-            </div>
+                    </table>
+                    <DownloadTableExcel
+        filename="minha_tabela"
+        sheet="dados"
+        currentTableRef={tableRef.current}
+      >
+        <button>Exportar para Excel</button>
+      </DownloadTableExcel>
                 
+            </div>
+            <FIIsDropdown />
         </div>
     );
 }

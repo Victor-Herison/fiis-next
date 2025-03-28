@@ -1,6 +1,7 @@
 import connectDB from "@/utils/db";
 import { FiiModel } from "@/utils/schema";
 
+
 async function getAllFiis() {
     try {
         const fiis = await FiiModel.find(); // Busca todos os FIIs no banco
@@ -19,13 +20,13 @@ async function fillterFiis(fiis, segmento, dy, pvp) {
            ( fii.segmento === segmento) &&
             fii.DY > parseFloat(dy) &&// DY maior que 8%
             fii.PVP < parseFloat(pvp) &&           // P/VP menor que 1
-            fii.liquidez > 1597750  // Liquidez acima de 1M
+            fii.liquidez > 1500000  // Liquidez acima de 1M
         );
     }else{
         return  await fiis.filter(fii =>
              fii.DY > parseFloat(dy) &&// DY maior que 8%
              fii.PVP < parseFloat(pvp) &&           // P/VP menor que 1
-             fii.liquidez > 1597750  // Liquidez acima de 1M
+             fii.liquidez > 1500000  // Liquidez acima de 1M
          );
     }
 }
