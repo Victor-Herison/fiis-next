@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button"
 
 export function FIIsDropdown() {
   return (
-    <div className="w-full max-w-3xl p-4 mt-7">
+    <div className="w-full p-4 mt-7">
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger className="text-lg font-medium cursor-pointer">Como funciona nosso filtro de FIIs?</AccordionTrigger>
