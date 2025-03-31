@@ -1,6 +1,3 @@
-import React from 'react';
-
-
 export default function Header() {
     return (
         <header className='flex justify-between items-center xl:p-4 p-5 bg-[#1F2937] h-23'>

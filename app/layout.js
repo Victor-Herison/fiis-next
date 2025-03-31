@@ -1,7 +1,6 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import SimpleBar from 'simplebar-react';
-import 'simplebar-react/dist/simplebar.min.css';
+
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Filtros de Fii",
