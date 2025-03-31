@@ -16,8 +16,8 @@ export function FIIsDropdown() {
     <div className="w-full p-4 mt-7">
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
-          <AccordionTrigger className="text-lg font-medium cursor-pointer">Como funciona nosso filtro de FIIs?</AccordionTrigger>
-          <AccordionContent className="text-muted-foreground">
+          <AccordionTrigger className="text-lg text-white font-medium cursor-pointer">Como funciona nosso filtro de FIIs?</AccordionTrigger>
+          <AccordionContent className="text-white">
             <p className="mb-4">
               Nosso filtro de FIIs permite que você encontre os
               melhores fundos imobiliários com base em diversos critérios como:
@@ -54,7 +54,7 @@ export function FIIsDropdown() {
               para encontrar os FIIs que atendem às suas necessidades.
             </p>
 
-            <div className="bg-gray-100 p-4 rounded-md">
+            <div className="bg-gray-100 p-4 rounded-md text-black">
               <h4 className="font-semibold mb-2">Entendendo as cores:</h4>
               <ul className="space-y-2">
                 <li className="flex items-center">
@@ -70,9 +70,9 @@ export function FIIsDropdown() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-2">
+        <AccordionItem value="item-2" className="text-white">
           <AccordionTrigger className="text-lg font-medium cursor-pointer">Dicas para usar o filtro eficientemente</AccordionTrigger>
-          <AccordionContent className="text-muted-foreground">
+          <AccordionContent className="text-white">
             <p className="mb-4">
               Para obter os melhores resultados com nosso
               filtro de FIIs:
@@ -92,8 +92,8 @@ export function FIIsDropdown() {
               <li>Analise a vacância média para entender o potencial de ocupação dos imóveis.</li>
             </ol>
 
-            <div className="bg-gray-100 p-4 rounded-md mb-4">
-              <p className="italic text-sm">
+            <div className="bg-gray-100 p-4 rounded-md mb-4 ">
+              <p className="italic text-sm text-black">
                 Lembre-se: Nada neste site é uma sugestão de investimento! Recomendamos você estudar aonde você investe
                 seu dinheiro.
               </p>
@@ -101,7 +101,7 @@ export function FIIsDropdown() {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full text-black  hover:text-gray-800 cursor-pointer">
                   Exemplos de estratégias <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
