@@ -22,6 +22,7 @@ export async function GET(req, { params }) {
 
         return NextResponse.json(fii);
     } catch (error) {
+        console.log(error);
         return NextResponse.json({ error: "Erro ao buscar FII" }, { status: 500 });
     }
 }
