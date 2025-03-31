@@ -57,6 +57,11 @@ input[type=number] {
     -moz-appearance:textfield;
 }
 
+select {
+  -webkit-appearance: none; /* Safari/Chrome */
+  -moz-appearance: none; /* Firefox */
+  background-color: transparent; /* Evita sombras internas */
+}
 .shadow{
   box-shadow: 3 3 6.2 rgba(0, 0, 0, 0.55);
 }
