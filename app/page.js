@@ -6,7 +6,6 @@ import { FaRegSave } from "react-icons/fa";
 
 
 import { useState, useEffect, useRef } from "react";
-import "./globals.css";
 //components, UI, utils
 import Aviso from "@/components/Aviso";
 import ErrorFilter from "@/components/ErrorFilter";
