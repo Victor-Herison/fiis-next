@@ -28,7 +28,6 @@ export default function Home() {
     });
 
     const tableRef = useRef(null);
-    console.log(search)
     
     useEffect(() => {
         fetchFiis();
