@@ -34,9 +34,11 @@ export default function Home() {
     }, []);
 
     const handleSubmit = async(e) =>{
+        setLoading(true)
         e.preventDefault()
 
         await fetchFiis()
+        setLoading(false)
     }
 
     async function fetchFiis() {

@@ -20,13 +20,13 @@ async function fillterFiis(fiis, segmento, dy, pvp) {
            ( fii.segmento === segmento) &&
             fii.DY > parseFloat(dy) &&// DY maior que 8%
             fii.PVP < parseFloat(pvp) &&           // P/VP menor que 1
-            fii.liquidez > 1500000  // Liquidez acima de 1M
+            fii.liquidez > 1700000  // Liquidez acima de 1M
         );
     }else{
         return  await fiis.filter(fii =>
              fii.DY > parseFloat(dy) &&// DY maior que 8%
              fii.PVP < parseFloat(pvp) &&           // P/VP menor que 1
-             fii.liquidez > 1500000  // Liquidez acima de 1M
+             fii.liquidez > 1700000  // Liquidez acima de 1M
          );
     }
 }
