@@ -3,8 +3,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-import Adsense from "@/components/Adsense";
-
 export const metadata = {
   title: "Filtros de Fii",
   description: "Site que filtra fundos imobiliarios.",
@@ -25,7 +23,8 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <Footer />
-        <Adsense />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7395370785593703"
+     crossorigin="anonymous"></script>
         </body>
         
     </html>
