@@ -9,10 +9,6 @@ export async function GET(req, { params }) {
     const {papel} = await params;
 
     try {
-        if (!papel) {
-            const fiis = await FiiModel.find();
-            return NextResponse.json(fiis);
-        }
 
         const fii = await FiiModel.findOne({ papel: papel.toUpperCase() });
 

@@ -13,20 +13,29 @@ async function getAllFiis() {
     }
 }
 
-async function fillterFiis(fiis, segmento, dy, pvp) {
-   
+await connectDB(); // Conecta ao banco de dados
+const fiis = await getAllFiis(); // Chama a função para buscar os FIIs
+
+async function fillterFiis(fiis, segmento, dy, pvp, valorMercado, vacancia, qtdImoveis) {
+    // Filtra os FIIs com base nos critérios fornecidos
+ 
     if(segmento){
-        return  await fiis.filter(fii =>
+        return fiis.filter(fii =>
            ( fii.segmento === segmento) &&
-            fii.DY > parseFloat(dy) &&// DY maior que 8%
-            fii.PVP < parseFloat(pvp) &&           // P/VP menor que 1
-            fii.liquidez > 1700000  // Liquidez acima de 1M
+            fii.DY >= parseFloat(dy) &&// DY maior que 8%
+            fii.PVP <= parseFloat(pvp) &&           // P/VP menor que 1
+            fii.liquidez > 1500000 &&  // Liquidez acima de 1M
+           
+            fii.vacanciaMedia <= parseFloat(vacancia) && // Vacância menor que 10%
+            fii.qtdImoveis >= parseFloat(qtdImoveis) // Qtd de imóveis acima de 0
         );
     }else{
-        return  await fiis.filter(fii =>
-             fii.DY > parseFloat(dy) &&// DY maior que 8%
-             fii.PVP < parseFloat(pvp) &&           // P/VP menor que 1
-             fii.liquidez > 1700000  // Liquidez acima de 1M
+        return fiis.filter(fii =>
+            fii.DY >= parseFloat(dy) &&// DY maior que 8%
+            fii.PVP <= parseFloat(pvp) &&         // P/VP menor que 1
+            fii.liquidez >= 1500000  &&// Valor de mercado acima de 0
+            fii.vacanciaMedia < parseFloat(vacancia) && // Vacância menor que 10%
+            fii.qtdImoveis >= parseFloat(qtdImoveis) // Qtd de imóveis acima de 0
          );
     }
 }
@@ -40,17 +49,22 @@ function sortFiis(fiis){
 
 export async function GET(req) {
     try {
-        await connectDB();
+        
 
         // Pegando os filtros da URL do frontend
         const { searchParams } = new URL(req.url);
+
+        // Pegando os filtros da URL do frontend
         const segmento = searchParams.get("segmento");
         const dy = searchParams.get("dy");
         const pvp = searchParams.get("pvp");
+        const valorMercado = searchParams.get("valorMercado");
+        const vacancia = searchParams.get("vacancia");
+        const qtdImoveis = searchParams.get("qtdImoveis");
 
-        const fiis = await getAllFiis();
-        const filteredFiis = await fillterFiis(fiis, segmento, dy, pvp);
-        if(await filteredFiis.length){
+        const filteredFiis = await fillterFiis(fiis, segmento, dy, pvp, valorMercado, vacancia, qtdImoveis);
+
+        if(filteredFiis.length){
             return Response.json(sortFiis(filteredFiis));
         }else{
             return Response.json({error: "não há FIIs com essas credenciais"}, {status : 404})

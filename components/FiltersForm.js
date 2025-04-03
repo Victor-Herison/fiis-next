@@ -1,6 +1,7 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import {options} from "@/utils/opitions";
+import { formatarNumero } from "@/utils/format";
 
 export default function FiltersForm({filters, setFilters, handleSubmit, loading, search, setSearch}) {
     return (
@@ -73,9 +74,9 @@ export default function FiltersForm({filters, setFilters, handleSubmit, loading,
                         <input
                         type="number"
                         id="pl"
-                        placeholder="150.000"
-                        value={filters.pl || ""}
-                        onChange={(e) => setFilters({ ...filters, pl: e.target.value })}
+                        placeholder="1.500.000"
+                        value={filters.valorMercado || ""}
+                        onChange={(e) => setFilters({ ...filters, valorMercado: e.target.value })}
                         className={`w-17 cursor-pointer focus:outline-none ${filters.pl >= 1500000 && filters.pl ? "text-green-500" : "text-yellow-500"}`}
                         />R$
                     </div>
@@ -100,7 +101,7 @@ export default function FiltersForm({filters, setFilters, handleSubmit, loading,
                         type="number"
                         id="qtdImoveis"
                         placeholder="3"
-                        value={filters.qtdImoveis || ""}
+                        value={filters.qtdImoveis}
                         onChange={(e) => setFilters({ ...filters, qtdImoveis: e.target.value })}
                         className={`w-6 cursor-pointer focus:outline-none ${filters.qtdImoveis >= 8 ? "text-green-500" : "text-yellow-500"}`}
                         />

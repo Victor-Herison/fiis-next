@@ -22,9 +22,9 @@ export default function Home() {
         dy: 12,
         pvp: 1,
         segmento:"",
-        pl: 0,
-        vacancia: 0,
-        qtdImoveis: 0,
+        valorMercado: 1000000,
+        vacancia: 10,
+        qtdImoveis:0
     });
 
     const tableRef = useRef(null);
@@ -45,7 +45,8 @@ export default function Home() {
 
         let url = search.length > 5
             ? `/api/fii/${search.toUpperCase()}`
-            : `/api/fii?dy=${filters.dy}&pvp=${filters.pvp}&segmento=${filters.segmento}`;
+            : `/api/fii?dy=${filters.dy}&pvp=${filters.pvp}&segmento=${filters.segmento}&valorMercado=${filters.valorMercado}&vacancia=${filters.vacancia}&qtdImoveis=${filters.qtdImoveis}`;
+        console.log(url)
 
         try {
             const res = await fetch(url);
