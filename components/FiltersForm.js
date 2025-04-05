@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import {options} from "@/utils/opitions";
-import { formatarNumero } from "@/utils/format";
+
 
 export default function FiltersForm({filters, setFilters, handleSubmit, loading, search, setSearch}) {
     return (
@@ -68,15 +68,15 @@ export default function FiltersForm({filters, setFilters, handleSubmit, loading,
                     </div>
 
 
-                    {/* PL */}
+                    {/* Liquidez */}
                     <div className="bg-white p-1.5 rounded-md flex flex-row items-center gap-2 shadow h-9">
-                        <label htmlFor="pl" className="text-md leading-none font-semibold text-center cursor-pointer">Patrimônio: </label>
+                        <label htmlFor="pl" className="text-md leading-none font-semibold text-center cursor-pointer">Liquidez: </label>
                         <input
                         type="number"
                         id="pl"
                         placeholder="1.500.000"
-                        value={filters.valorMercado || ""}
-                        onChange={(e) => setFilters({ ...filters, valorMercado: e.target.value })}
+                        value={filters.liquidez || ""}
+                        onChange={(e) => setFilters({ ...filters, liquidez: e.target.value })}
                         className={`w-17 cursor-pointer focus:outline-none ${filters.pl >= 1500000 && filters.pl ? "text-green-500" : "text-yellow-500"}`}
                         />R$
                     </div>

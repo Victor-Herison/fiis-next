@@ -16,7 +16,9 @@ async function getAllFiis() {
 await connectDB(); // Conecta ao banco de dados
 const fiis = await getAllFiis(); // Chama a função para buscar os FIIs
 
-async function fillterFiis(fiis, segmento, dy, pvp, valorMercado, vacancia, qtdImoveis) {
+
+
+async function fillterFiis(fiis, segmento, dy, pvp, liquidez, vacancia, qtdImoveis) {
     // Filtra os FIIs com base nos critérios fornecidos
  
     if(segmento){
@@ -24,7 +26,7 @@ async function fillterFiis(fiis, segmento, dy, pvp, valorMercado, vacancia, qtdI
            ( fii.segmento === segmento) &&
             fii.DY >= parseFloat(dy) &&// DY maior que 8%
             fii.PVP <= parseFloat(pvp) &&           // P/VP menor que 1
-            fii.liquidez > 1500000 &&  // Liquidez acima de 1M
+            fii.liquidez > liquidez &&  // Liquidez acima de 1M
            
             fii.vacanciaMedia <= parseFloat(vacancia) && // Vacância menor que 10%
             fii.qtdImoveis >= parseFloat(qtdImoveis) // Qtd de imóveis acima de 0
@@ -33,7 +35,7 @@ async function fillterFiis(fiis, segmento, dy, pvp, valorMercado, vacancia, qtdI
         return fiis.filter(fii =>
             fii.DY >= parseFloat(dy) &&// DY maior que 8%
             fii.PVP <= parseFloat(pvp) &&         // P/VP menor que 1
-            fii.liquidez >= 1500000  &&// Valor de mercado acima de 0
+            fii.liquidez >= liquidez  &&// Valor de mercado acima de 0
             fii.vacanciaMedia < parseFloat(vacancia) && // Vacância menor que 10%
             fii.qtdImoveis >= parseFloat(qtdImoveis) // Qtd de imóveis acima de 0
          );
@@ -58,11 +60,11 @@ export async function GET(req) {
         const segmento = searchParams.get("segmento");
         const dy = searchParams.get("dy");
         const pvp = searchParams.get("pvp");
-        const valorMercado = searchParams.get("valorMercado");
+        const liquidez = searchParams.get("liquidez");
         const vacancia = searchParams.get("vacancia");
         const qtdImoveis = searchParams.get("qtdImoveis");
 
-        const filteredFiis = await fillterFiis(fiis, segmento, dy, pvp, valorMercado, vacancia, qtdImoveis);
+        const filteredFiis = await fillterFiis(fiis, segmento, dy, pvp, liquidez, vacancia, qtdImoveis);
 
         if(filteredFiis.length){
             return Response.json(sortFiis(filteredFiis));
