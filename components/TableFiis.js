@@ -133,15 +133,15 @@ export default function TableFiis({ loading, fiis }) {
                 key={fii.papel}
                 className="text-center text-lg text-black bg-white border-b-1 border-gray-200 hover:bg-gray-100 transition-all duration-300"
               >
-                <td className="py-2 font-medium border-r-1 border-gray-200">{fii.papel}</td>
+                <td className="py-2 font-medium border-r-1 border-gray-200 text-green-800">{fii.papel}</td>
                 <td className="py-2 border-r-1 border-gray-200 font-['Inter']">{formatarMoeda(fii.cotacao)}</td>
                 <td
-                  className={`py-2 border-r-1 border-gray-200 font-['Inter'] ${fii.DY >= 8 && fii.DY <= 13 ? "text-green-500" : "text-yellow-500"}`}
+                  className={`py-2 border-r-1 border-gray-200 font-['Inter'] ${fii.DY >= 8 && fii.DY <= 13 ? "text-green-600" : "text-yellow-600"}`}
                 >
                   {fii.DY}%
                 </td>
                 <td
-                  className={`py-2 border-r-1 border-gray-200 font-['Inter'] ${fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-500" : "text-yellow-500"}`}
+                  className={`py-2 border-r-1 border-gray-200 font-['Inter'] ${fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-600" : "text-yellow-600"}`}
                 >
                   {fii.PVP}
                 </td>

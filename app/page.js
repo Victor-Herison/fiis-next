@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState, useEffect, useRef } from "react";
 //components, UI, utils
 import Aviso from "@/components/Aviso";
@@ -41,7 +42,7 @@ export default function Home() {
         let url = search.length > 5
             ? `/api/fii/${search.toUpperCase()}`
             : `/api/fii?dy=${filters.dy}&pvp=${filters.pvp}&segmento=${filters.segmento}&liquidez=${filters.liquidez}&vacancia=${filters.vacancia}&qtdImoveis=${filters.qtdImoveis}`;
-        console.log(url)
+        
 
         try {
             const res = await fetch(url);
