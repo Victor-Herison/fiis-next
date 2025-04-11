@@ -3,10 +3,16 @@
 import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
 import { HelpCircle } from "lucide-react"
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts"
-import { formatarNumero, formatarMoeda } from "@/utils/format"
+import { Bar, ComposedChart,Line, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip   } from "recharts"
+import { formatarMoeda } from "@/utils/format"
 
 export default function InvestmentCalculator() {
   const [initialValue, setInitialValue] = useState("1000")
@@ -23,7 +29,7 @@ export default function InvestmentCalculator() {
 
   useEffect(() => {
     calculateInvestment()
-  }, [initialValue, interestRate, monthlyContribution, period, interestPeriod, timePeriod])
+  }, [initialValue, interestRate, monthlyContribution, period, goal, interestPeriod, timePeriod])
 
   const calculateInvestment = () => {
     const principal = Number.parseFloat(initialValue) || 0
@@ -44,12 +50,14 @@ export default function InvestmentCalculator() {
 
       const total = compoundedInitial + compoundedAportes
       const interest = total - totalContributions
+      const meta = Number.parseFloat(goal) || 0
 
       data.push({
         name: timePeriod === "yearly" ? `Ano ${Math.floor(i / 12)}` : `Mês ${i}`,
         contributions: Math.round(totalContributions),
         interest: Math.round(interest),
         total: Math.round(total),
+        goal: meta,
       })
     }
 
@@ -66,6 +74,7 @@ export default function InvestmentCalculator() {
           <Field
             id="initial-value"
             label="Valor inicial"
+            tooltip="Valor o qual você começará a investir."
             value={initialValue}
             onChange={(e) => setInitialValue(formatCurrency(e.target.value))}
             prefix="R$"
@@ -73,11 +82,13 @@ export default function InvestmentCalculator() {
 
           {/* Juros */}
           <Field
+
             id="interest-rate"
             label="Juros"
             value={interestRate}
             onChange={(e) => setInterestRate(formatPercentage(e.target.value))}
             prefix="%"
+            tooltip="Taxa de juros aplicada mensalmente ou anualmente sobre o total acumulado."
             select={{
               value: interestPeriod,
               onChange: setInterestPeriod,
@@ -92,6 +103,7 @@ export default function InvestmentCalculator() {
           <Field
             id="monthly-contribution"
             label="Aporte mensal"
+             tooltip="Quantidade que você pretende investir mensalmente."
             value={monthlyContribution}
             onChange={(e) => setMonthlyContribution(formatCurrency(e.target.value))}
             prefix="R$"
@@ -102,6 +114,7 @@ export default function InvestmentCalculator() {
             id="period"
             label="Período"
             value={period}
+            tooltip="Tempo que você pretende investir."
             onChange={(e) => setPeriod(e.target.value.replace(/\D/g, ""))}
             select={{
               value: timePeriod,
@@ -117,6 +130,7 @@ export default function InvestmentCalculator() {
           <Field
             id="goal"
             label="Meta"
+            tooltip="Meta em reais que você deseja alcançar."
             value={goal}
             onChange={(e) => setGoal(formatCurrency(e.target.value))}
             prefix="R$"
@@ -134,51 +148,63 @@ export default function InvestmentCalculator() {
         </div>
 
         <div className="h-80">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-              <XAxis dataKey="name" stroke="#fff" />
-              <YAxis stroke="#fff" tickFormatter={(value) => formatarMoeda(value)} />
-              <Tooltip
+        <ResponsiveContainer width="100%" height="100%">
+  <ComposedChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+    <XAxis dataKey="name" stroke="#fff" />
+    <YAxis stroke="#fff" />
+    <RechartsTooltip
   formatter={(value, name) => {
-    let label = ""
-    switch (name) {
-      case "contributions":
-        label = "Aportes"
-        break
-      case "interest":
-        label = "Juros"
-        break
-      case "total":
-        label = "Montante Total"
-        break
-      case "goal":
-        label = "Meta"
-        break
-      default:
-        label = name
+    const labelMap = {
+      contributions: "Aportes",
+      interest: "Juros",
+      total: "Montante Total",
+      goal: "Meta",
     }
-    return [formatarMoeda(value), label]
+    return [formatarMoeda(value), labelMap[name] || name]
   }}
   labelFormatter={(label) => label}
-/>
-              <Bar dataKey="contributions" stackId="a" fill="#22c55e" name="Aportes" />
-              <Bar dataKey="interest" stackId="a" fill="#34d399" name="Juros" />
-              <Bar dataKey="total" fill="#67e8f9" name="Total" />
-            </BarChart>
-          </ResponsiveContainer>
+  />
+
+    <Bar dataKey="contributions" stackId="a" fill="#22c55e" name="Aportes" />
+    <Bar dataKey="interest" stackId="a" fill="#34d399" name="Juros" />
+    <Line type="monotone" dataKey="total" stroke="oklch(78.9% 0.154 211.53)" strokeWidth={2} dot={false} name="Montante Total" />
+    <Line
+      type="monotone"
+      dataKey="goal"
+      stroke="#f87171"
+      strokeDasharray="5 5"
+      strokeWidth={2}
+      dot={false}
+      name="Meta"
+    />
+  </ComposedChart>
+</ResponsiveContainer>
         </div>
       </div>
     </div>
   )
 }
 
-function Field({ id, label, value, onChange, prefix, select, full = false }) {
+function Field({ id, label, value, onChange, prefix, select, full = false, tooltip }) {
   return (
     <div className={`space-y-2 ${full ? "md:col-span-2 md:w-1/2" : ""}`}>
       <div className="flex items-center gap-1">
         <label htmlFor={id} className="text-lg font-medium">{label}</label>
-        <HelpCircle className="h-4 w-4 text-gray-500" />
+
+        {tooltip && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <HelpCircle className="h-4 w-4 text-gray-500 cursor-pointer" />
+              </TooltipTrigger>
+              <TooltipContent side="top">
+                <p className="text-sm">{tooltip}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
       </div>
+
       <div className="flex">
         <div className="relative flex-1">
           <Input
@@ -191,9 +217,10 @@ function Field({ id, label, value, onChange, prefix, select, full = false }) {
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600">{prefix}</span>
           )}
         </div>
+
         {select && (
           <Select value={select.value} onValueChange={select.onChange}>
-            <SelectTrigger className="w-32 bg-emerald-500 text-white border-0 h-12 rounded-l-none">
+            <SelectTrigger className="w-32 bg-emerald-500 text-white border-0 rounded-l-none !h-12 flex items-center justify-center">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -209,6 +236,7 @@ function Field({ id, label, value, onChange, prefix, select, full = false }) {
     </div>
   )
 }
+
 
 function Legend({ color, label }) {
   return (
