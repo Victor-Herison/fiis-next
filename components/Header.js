@@ -7,7 +7,7 @@ export default function Header() {
             </a>
                 <nav className='flex gap-6 text-white xl:mr-10 mr-0 text-center flex-row justify-center items-center text-xl'>
                     <a href="/wait" className='hover:cursor-pointer hover:scale-110 hover:text-[#F59E0B] transition-all duration-300'>Filtros</a>
-                    <a href="/wait" className='hover:cursor-pointer hover:scale-110 hover:text-[#F59E0B] transition-all duration-300'>Calculadora</a>
+                    <a href="/calculadora" className='hover:cursor-pointer hover:scale-110 hover:text-[#F59E0B] transition-all duration-300'>Calculadora</a>
                     <a href="/wait" className='hover:cursor-pointer hover:scale-110 hover:text-[#F59E0B] transition-all duration-300'>Artigos</a>
                 <button className='bg-white text-black px-4 py-1.5 rounded-md hover:cursor-pointer hover:bg-[#F59E0B] transition-all duration-300 hover:text-white'>Entrar</button>
             </nav>
