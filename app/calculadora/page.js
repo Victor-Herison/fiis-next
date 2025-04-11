@@ -120,8 +120,8 @@ export default function InvestmentCalculator() {
               value: timePeriod,
               onChange: setTimePeriod,
               items: [
-                { value: "monthly", label: "Mensal" },
-                { value: "yearly", label: "Anual" },
+                { value: "monthly", label: "Meses" },
+                { value: "yearly", label: "Anos" },
               ],
             }}
           />
