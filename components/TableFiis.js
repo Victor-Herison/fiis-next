@@ -111,14 +111,14 @@ export default function TableFiis({ loading, fiis }) {
             </th>
           </tr>
           <tr className="h-15 text-center text-lg text-white">
-            <th className="w-[12%]">Papel</th>
-            <th className="w-[12%]">Cotação</th>
-            <th className="w-[12%]">DY</th>
-            <th className="w-[12%]">P/VP</th>
-            <th className="w-[12%]">Liquidez</th>
-            <th className="w-[12%]">Imóveis</th>
-            <th className="w-[12%]">Vacância média</th>
-            <th className="w-[14%]">Segmento</th>
+            <th className="w-[12%] text-base px-2">Papel</th>
+            <th className="w-[12%] text-base px-2">Cotação</th>
+            <th className="w-[12%] text-base px-2">DY</th>
+            <th className="w-[12%] text-base px-2">P/VP</th>
+            <th className="w-[12%] text-base px-2">Liquidez</th>
+            <th className="w-[12%] text-base px-2">Imóveis</th>
+            <th className="w-[12%] text-base px-2">Vacância média</th>
+            <th className="w-[12%] text-base px-2">Segmento</th>
           </tr>
         </thead>
         {fiis.length > 0 && fiis[0].error ? (

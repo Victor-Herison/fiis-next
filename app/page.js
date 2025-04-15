@@ -65,7 +65,7 @@ export default function Home() {
             
             
             
-            <div className="bg-[#33445B] p-1 rounded-md shadow min-w-[1202px] mt-10">
+            <div className="bg-[#33445B] p-1 rounded-md mt-10 w-full">
                 <FiltersForm filters={filters} setFilters={setFilters} handleSubmit={handleSubmit} loading={loading} search={search} setSearch={setSearch} />
             </div>
 
