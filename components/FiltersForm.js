@@ -14,7 +14,7 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
       {/* Mobile toggle button */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="md:hidden flex items-center justify-center gap-2 w-full bg-white rounded-lg shadow-md p-3 mb-4"
+        className="sm:hidden flex items-center justify-center gap-2 w-full bg-white rounded-lg shadow-md p-3 mb-4"
       >
         <Filter size={18} className="text-gray-600" />
         <span className="font-medium">{isExpanded ? "Ocultar filtros" : "Mostrar filtros"}</span>
@@ -22,8 +22,8 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
 
       <form
         className={`${
-          isExpanded ? "flex" : "hidden md:flex"
-        } flex-col md:flex-row md:flex-wrap lg:flex-nowrap gap-3 md:gap-4 justify-start items-stretch transition-all duration-300`}
+          isExpanded ? "flex" : "hidden sm:flex"
+        } flex-col sm:flex-row filter-form lg:flex gap-3 md:gap-4 2xl:justify-evenly items-stretch transition-all duration-300`}
         onSubmit={handleSubmit}
       >
         {/* DY */}
