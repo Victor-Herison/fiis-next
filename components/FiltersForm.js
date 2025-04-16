@@ -14,9 +14,9 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
       {/* Mobile toggle button */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="sm:hidden flex items-center justify-center gap-2 w-full bg-white rounded-lg shadow-md p-3 mb-4"
+        className="sm:hidden flex items-center justify-center gap-2 w-full bg-white rounded-lg shadow-md p-3 mb-4 hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-600 hover:text-white transition-all duration-300"
       >
-        <Filter size={18} className="text-gray-600" />
+        <Filter size={18} className="text-gray-600 hover:text-white transition-all duration-300" />
         <span className="font-medium">{isExpanded ? "Ocultar filtros" : "Mostrar filtros"}</span>
       </button>
 
@@ -27,28 +27,34 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
         onSubmit={handleSubmit}
       >
         {/* DY */}
-        <div className="bg-white rounded-lg shadow-md flex items-center px-3 py-2 hover:shadow-lg transition-shadow">
-          <label htmlFor="dy" className="text-gray-700 font-medium whitespace-nowrap mr-2">
-            DY Mínimo:
-          </label>
-          <div className="flex items-center">
+        <div className="bg-white justify-between rounded-lg shadow-md flex items-center px-3 py-2 hover:shadow-lg hover:bg-green-50 transition-all duration-300">
+          <div>
+            <label
+              htmlFor="dy"
+              className="text-gray-700 font-medium whitespace-nowrap mr-2 cursor-pointer"
+            >
+              DY Mínimo:
+            </label>
             <input
               type="number"
               id="dy"
               placeholder="0"
               value={filters.dy || ""}
               onChange={(e) => setFilters({ ...filters, dy: e.target.value })}
-              className={`w-14 focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
+              className={`w-50 sm:w-24 md:w-22 xl:w-14 focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
                 filters.dy >= 8 && filters.dy <= 13 ? "text-green-600" : "text-amber-600"
               }`}
             />
-            <span className="ml-1 text-gray-700">%</span>
           </div>
+          <span className="ml-1 text-gray-700">%</span>
         </div>
 
         {/* PVP */}
-        <div className="bg-white rounded-lg shadow-md flex items-center px-3 py-2 hover:shadow-lg transition-shadow">
-          <label htmlFor="pvp" className="text-gray-700 font-medium whitespace-nowrap mr-2">
+        <div className="bg-white rounded-lg shadow-md flex items-center px-3 py-2 hover:shadow-lg hover:bg-green-50 transition-all duration-300">
+          <label
+            htmlFor="pvp"
+            className="text-gray-700 font-medium whitespace-nowrap mr-2 cursor-pointer"
+          >
             P/VP Máximo:
           </label>
           <input
@@ -57,35 +63,38 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
             placeholder="0"
             value={filters.pvp || ""}
             onChange={(e) => setFilters({ ...filters, pvp: e.target.value })}
-            className={`w-14 focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
+            className={`w-50 sm:w-24 md:w-22 xl:w-14 focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
               filters.pvp >= 0.8 && filters.pvp <= 1.1 ? "text-green-600" : "text-amber-600"
             }`}
           />
         </div>
 
         {/* SEGMENTO */}
-        <div className="bg-white rounded-lg shadow-md flex items-center px-3 py-2 hover:shadow-lg transition-shadow">
-          <label htmlFor="segmento" className="text-gray-700 font-medium whitespace-nowrap mr-2">
+        <div className="bg-white rounded-lg shadow-md flex items-center px-3 py-2 hover:shadow-lg hover:bg-green-50 transition-all duration-300">
+          <label
+            htmlFor="segmento"
+            className="text-gray-700 font-medium whitespace-nowrap mr-2 cursor-pointer"
+          >
             Segmento:
           </label>
           <select
             id="segmento"
             value={filters.segmento}
             onChange={(e) => setFilters({ ...filters, segmento: e.target.value })}
-            className={`focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
+            className={`focus:outline-none cursor-pointer focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
               filters.segmento === "Logistica"
                 ? "text-emerald-600"
                 : filters.segmento === "Shoppings"
-                  ? "text-blue-600"
-                  : filters.segmento === "Titulos e Val. Mob."
-                    ? "text-amber-600"
-                    : filters.segmento === "Hibrido"
-                      ? "text-purple-600"
-                      : filters.segmento === "Lajes Corporativas"
-                        ? "text-red-600"
-                        : filters.segmento === "Outros"
-                          ? "text-blue-600"
-                          : "text-gray-700"
+                ? "text-blue-600"
+                : filters.segmento === "Titulos e Val. Mob."
+                ? "text-amber-600"
+                : filters.segmento === "Hibrido"
+                ? "text-purple-600"
+                : filters.segmento === "Lajes Corporativas"
+                ? "text-red-600"
+                : filters.segmento === "Outros"
+                ? "text-blue-600"
+                : "text-gray-700"
             }`}
           >
             <option value="">Todos segmentos</option>
@@ -111,8 +120,11 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
         </div>
 
         {/* Liquidez */}
-        <div className="bg-white rounded-lg shadow-md flex items-center px-3 py-2 hover:shadow-lg transition-shadow">
-          <label htmlFor="liquidez" className="text-gray-700 font-medium whitespace-nowrap mr-2">
+        <div className="bg-white rounded-lg shadow-md flex items-center px-3 py-2 hover:shadow-lg hover:bg-green-50 transition-all duration-300">
+          <label
+            htmlFor="liquidez"
+            className="text-gray-700 font-medium whitespace-nowrap mr-2 cursor-pointer"
+          >
             Liquidez:
           </label>
           <div className="flex items-center">
@@ -123,14 +135,15 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
               placeholder="1.500.000"
               value={filters.liquidez || ""}
               onChange={(e) => setFilters({ ...filters, liquidez: e.target.value })}
-              className={`w-24 focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
+              className={`w-24 sm:w-32 md:w-40 focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
                 filters.liquidez >= 1500000 && filters.liquidez ? "text-green-600" : "text-amber-600"
               }`}
             />
           </div>
         </div>
+
         {/* Autocomplete */}
-        <div className="bg-white rounded-lg shadow-md flex items-center px-3 py-2 hover:shadow-lg transition-shadow">
+        <div className="bg-white rounded-lg shadow-md flex items-center px-3 py-2 hover:shadow-lg hover:bg-green-50 transition-all duration-300">
           <div className="flex items-center w-full">
             <Search size={18} className="text-gray-500 mr-2" />
             <Autocomplete
@@ -155,7 +168,7 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
         <button
           type="submit"
           disabled={loading}
-          className="bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium px-6 py-2.5 rounded-lg shadow-md curso disabled:opacity-70 transition-all  flex items-center justify-center hover:scale gap-2 min-w-[120px] hover:bg-green-500 duration-700"
+          className="bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium px-6 py-2.5 rounded-lg shadow-md curso disabled:opacity-70 transition-all flex items-center justify-center hover:scale-105 hover:shadow-lg gap-2 min-w-[120px] duration-300 cursor-pointer"
         >
           <Filter size={18} />
           {loading ? "Carregando..." : "Filtrar"}

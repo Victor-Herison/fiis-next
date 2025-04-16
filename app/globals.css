@@ -85,7 +85,7 @@ select {
   100% { background-position: -200% 0; }
 }
 
-@media screen and (min-width: 640px) and (max-width: 1368px) {
+@media screen and (min-width: 640px) and (max-width: 1444px) {
   .filter-form{
     display: grid;
     grid-template: auto auto auto / auto auto;
