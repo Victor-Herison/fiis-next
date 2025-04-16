@@ -84,9 +84,9 @@ export default function TableFiis({ loading, fiis }) {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-gray-800">
       <table ref={tableRef} className="w-full">
-        <thead className="bg-gray-500 rounded-t-3xl sticky top-0">
+        <thead className="bg-gray-700 rounded-t-3xl sticky top-0">
           <tr>
             <th
               colSpan="8"
@@ -124,32 +124,29 @@ export default function TableFiis({ loading, fiis }) {
         {fiis.length > 0 && fiis[0].error ? (
           <ErrorFilter />
         ) : (
-            
           <tbody className="bg-black">
-            
             {currentFiis.map((fii) => (
-                
               <tr
                 key={fii.papel}
-                className="text-center text-lg text-black bg-white border-b-1 border-gray-200 hover:bg-gray-100 transition-all duration-300"
+                className="text-center text-lg text-white bg-gray-800 border-b-1 border-gray-700 hover:bg-gray-900 transition-all duration-300"
               >
-                <td className="py-2 font-medium border-r-1 border-gray-200 text-green-800">{fii.papel}</td>
-                <td className="py-2 border-r-1 border-gray-200 font-['Inter']">{formatarMoeda(fii.cotacao)}</td>
+                <td className="py-2 px-2 font-medium border-r-1 border-gray-700 text-green-400">{fii.papel}</td>
+                <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarMoeda(fii.cotacao)}</td>
                 <td
-                  className={`py-2 border-r-1 border-gray-200 font-['Inter'] ${fii.DY >= 8 && fii.DY <= 13 ? "text-green-600" : "text-yellow-600"}`}
+                  className={`py-2 px-2 border-r-1 border-gray-700 font-['Inter'] ${fii.DY >= 8 && fii.DY <= 13 ? "text-green-400" : "text-yellow-400"}`}
                 >
                   {fii.DY}%
                 </td>
                 <td
-                  className={`py-2 border-r-1 border-gray-200 font-['Inter'] ${fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-600" : "text-yellow-600"}`}
+                  className={`py-2 px-2 border-r-1 border-gray-700 font-['Inter'] ${fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-400" : "text-yellow-400"}`}
                 >
                   {fii.PVP}
                 </td>
-                <td className="py-2 border-r-1 border-gray-200 font-['Inter']">{formatarMoeda(fii.liquidez)}</td>
-                <td className="py-2 border-r-1 border-gray-200 font-['Inter']">{fii.qtdImoveis}</td>
-                <td className="py-2 border-r-1 border-gray-200 font-['Inter']">{formatarNumero(fii.vacanciaMedia)}%</td>
+                <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarMoeda(fii.liquidez)}</td>
+                <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{fii.qtdImoveis}</td>
+                <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarNumero(fii.vacanciaMedia)}%</td>
                 <td
-                  className={`py-2 ${
+                  className={`py-2 px-2 ${
                     fii.segmento === "Logistica"
                       ? "text-[#10B981]"
                       : fii.segmento === "Shoppings"
@@ -160,7 +157,7 @@ export default function TableFiis({ loading, fiis }) {
                             ? "text-[#8B5CF6]"
                             : fii.segmento === "Lajes Corporativas"
                               ? "text-[#EF4444]"
-                              : "text-black"
+                              : "text-white"
                   }`}
                 >
                   {fii.segmento}
@@ -173,12 +170,12 @@ export default function TableFiis({ loading, fiis }) {
 
       {/* Pagination Controls */}
       {fiis.length > 0 && !fiis[0].error && totalPages > 1 && (
-        <div className="flex justify-center items-center mt-4 mb-6">
+        <div className="flex justify-center items-center mt-4 mb-6 ">
           <div className="flex items-center space-x-2">
             <button
               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 1}
-              className={`p-2 rounded-md ${currentPage === 1 ? "text-gray-400 cursor-not-allowed" : "text-green-500 hover:bg-green-50"}`}
+              className={`p-2 rounded-md ${currentPage === 1 ? "text-gray-400 cursor-not-allowed" : "text-green-400 hover:bg-gray-900"}`}
               aria-label="Página anterior"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -190,10 +187,10 @@ export default function TableFiis({ loading, fiis }) {
                 onClick={() => (typeof pageNumber === "number" ? goToPage(pageNumber) : null)}
                 className={`px-3 py-1 rounded-md ${
                   pageNumber === currentPage
-                    ? "bg-green-500 text-white"
+                    ? "bg-green-400 text-white"
                     : pageNumber === "..."
                       ? "cursor-default"
-                      : "hover:bg-green-50 text-green-600"
+                      : "hover:bg-gray-900 text-green-400"
                 }`}
               >
                 {pageNumber}
@@ -203,7 +200,7 @@ export default function TableFiis({ loading, fiis }) {
             <button
               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className={`p-2 rounded-md ${currentPage === totalPages ? "text-gray-400 cursor-not-allowed" : "text-green-500 hover:bg-green-50"}`}
+              className={`p-2 rounded-md ${currentPage === totalPages ? "text-gray-400 cursor-not-allowed" : "text-green-400 hover:bg-gray-900"}`}
               aria-label="Próxima página"
             >
               <ChevronRight className="h-5 w-5" />
@@ -214,13 +211,10 @@ export default function TableFiis({ loading, fiis }) {
 
       {/* Page info */}
       {fiis.length > 0 && !fiis[0].error && totalPages > 1 && (
-        <div className="text-center text-sm text-gray-500 mb-4">
+        <div className="text-center text-sm text-gray-500 bg-green-400">
           Mostrando {indexOfFirstFii + 1}-{Math.min(indexOfLastFii, fiis.length)} de {fiis.length} FIIs
-          
         </div>
-
       )}
-      
     </div>
   )
 }
