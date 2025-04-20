@@ -1,24 +1,18 @@
 "use client"
-//baixar como excel
+
 import { DownloadTableExcel } from "react-export-table-to-excel"
-
-// useRef para exportar como excel
 import { useRef, useState } from "react"
-
-//icons
 import { FaRegSave } from "react-icons/fa"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-
-//componente de erro
+import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
 import ErrorFilter from "@/components/ErrorFilter"
-//formatar moeda
 import { formatarMoeda, formatarNumero } from "@/utils/format"
 
 const fiiPerPage = 10
+
 export default function TableFiis({ loading, fiis }) {
   const tableRef = useRef(null)
   const [currentPage, setCurrentPage] = useState(1)
-  
+  const [expandedRow, setExpandedRow] = useState(null)
 
   // Calculate total pages
   const totalPages = Math.ceil(fiis.length / fiiPerPage)
@@ -31,6 +25,11 @@ export default function TableFiis({ loading, fiis }) {
   // Change page
   const goToPage = (pageNumber) => {
     setCurrentPage(Math.max(1, Math.min(pageNumber, totalPages)))
+  }
+
+  // Toggle expanded row for mobile view
+  const toggleRow = (index) => {
+    setExpandedRow(expandedRow === index ? null : index)
   }
 
   // Generate page numbers to display
@@ -84,98 +83,222 @@ export default function TableFiis({ loading, fiis }) {
   }
 
   return (
-    <div className="w-full bg-gray-800">
-      <table ref={tableRef} className="w-full">
-        <thead className="bg-gray-700 rounded-t-3xl sticky top-0">
-          <tr>
-            <th
-              colSpan="8"
-              className={`h-13 rounded-t-3xl w-full p-1.5 ${loading ? "text-white bg-gray-500" : fiis.length > 0 && fiis[0].error ? "text-white bg-red-500" : "text-white bg-green-500"}`}
-            >
-              {loading ? (
-                <p>Carregando...</p>
-              ) : fiis.length > 0 && fiis[0].error ? (
-                <p className="text-xl text-center">Não há FIIs com esses filtros</p>
-              ) : fiis.length > 0 ? (
-                <>
-                  <p className="text-xl text-center">{fiis.length} FIIs encontrados</p>
-                  <DownloadTableExcel filename="FIIs_filtrados" sheet="dados" currentTableRef={tableRef.current}>
-                    <button className="inline cursor-pointer hover:text-green-900 transition-all duration-300">
-                      Exportar <FaRegSave className="inline" />
-                    </button>
-                  </DownloadTableExcel>
-                </>
-              ) : (
-                <p className="text-center w-full">Nenhum FII encontrado</p>
-              )}
-            </th>
-          </tr>
-          <tr className="h-15 text-center text-lg text-white">
-            <th className="w-[12%] text-base px-2">Papel</th>
-            <th className="w-[12%] text-base px-2">Cotação</th>
-            <th className="w-[12%] text-base px-2">DY</th>
-            <th className="w-[12%] text-base px-2">P/VP</th>
-            <th className="w-[12%] text-base px-2">Liquidez</th>
-            <th className="w-[12%] text-base px-2">Imóveis</th>
-            <th className="w-[12%] text-base px-2">Vacância média</th>
-            <th className="w-[12%] text-base px-2">Segmento</th>
-          </tr>
-        </thead>
-        {fiis.length > 0 && fiis[0].error ? (
-          <ErrorFilter />
-        ) : (
-          <tbody className="bg-black">
-            {currentFiis.map((fii) => (
-              <tr
-                key={fii.papel}
-                className="text-center text-lg text-white bg-gray-800 border-b-1 border-gray-700 hover:bg-gray-900 transition-all duration-300"
+    <div className="w-full bg-gray-800 overflow-x-auto">
+      {/* Desktop Table */}
+      <div className="hidden md:block">
+        <table ref={tableRef} className="w-full">
+          <thead className="bg-gray-700 rounded-t-3xl sticky top-0">
+            <tr>
+              <th
+                colSpan="8"
+                className={`h-13 rounded-t-3xl w-full p-1.5 ${
+                  loading
+                    ? "text-white bg-gray-500"
+                    : fiis.length > 0 && fiis[0].error
+                      ? "text-white bg-red-500"
+                      : "text-white bg-green-500"
+                }`}
               >
-                <td className="py-2 px-2 font-medium border-r-1 border-gray-700 text-green-400">{fii.papel}</td>
-                <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarMoeda(fii.cotacao)}</td>
-                <td
-                  className={`py-2 px-2 border-r-1 border-gray-700 font-['Inter'] ${fii.DY >= 8 && fii.DY <= 13 ? "text-green-400" : "text-yellow-400"}`}
+                {loading ? (
+                  <p>Carregando...</p>
+                ) : fiis.length > 0 && fiis[0].error ? (
+                  <p className="text-xl text-center">Não há FIIs com esses filtros</p>
+                ) : fiis.length > 0 ? (
+                  <>
+                    <p className="text-xl text-center">{fiis.length} FIIs encontrados</p>
+                    <DownloadTableExcel filename="FIIs_filtrados" sheet="dados" currentTableRef={tableRef.current}>
+                      <button className="inline cursor-pointer hover:text-green-900 transition-all duration-300">
+                        Exportar <FaRegSave className="inline" />
+                      </button>
+                    </DownloadTableExcel>
+                  </>
+                ) : (
+                  <p className="text-center w-full">Nenhum FII encontrado</p>
+                )}
+              </th>
+            </tr>
+            <tr className="h-15 text-center text-lg text-white">
+              <th className="w-[12%] text-base px-2">Papel</th>
+              <th className="w-[12%] text-base px-2">Cotação</th>
+              <th className="w-[12%] text-base px-2">DY</th>
+              <th className="w-[12%] text-base px-2">P/VP</th>
+              <th className="w-[12%] text-base px-2">Liquidez</th>
+              <th className="w-[12%] text-base px-2">Imóveis</th>
+              <th className="w-[12%] text-base px-2">Vacância média</th>
+              <th className="w-[12%] text-base px-2">Segmento</th>
+            </tr>
+          </thead>
+          {fiis.length > 0 && fiis[0].error ? (
+            <ErrorFilter />
+          ) : (
+            <tbody className="bg-black">
+              {currentFiis.map((fii) => (
+                <tr
+                  key={fii.papel}
+                  className="text-center text-lg text-white bg-gray-800 border-b-1 border-gray-700 hover:bg-gray-900 transition-all duration-300"
                 >
-                  {fii.DY}%
-                </td>
-                <td
-                  className={`py-2 px-2 border-r-1 border-gray-700 font-['Inter'] ${fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-400" : "text-yellow-400"}`}
-                >
-                  {fii.PVP}
-                </td>
-                <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarMoeda(fii.liquidez)}</td>
-                <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{fii.qtdImoveis}</td>
-                <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarNumero(fii.vacanciaMedia)}%</td>
-                <td
-                  className={`py-2 px-2 ${
-                    fii.segmento === "Logistica"
-                      ? "text-[#10B981]"
-                      : fii.segmento === "Shoppings"
-                        ? "text-[#3B82F6]"
-                        : fii.segmento === "Titulos e Val. Mob."
-                          ? "text-[#F59E0B]"
-                          : fii.segmento === "Hibrido"
-                            ? "text-[#8B5CF6]"
-                            : fii.segmento === "Lajes Corporativas"
-                              ? "text-[#EF4444]"
-                              : "text-white"
-                  }`}
-                >
-                  {fii.segmento}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        )}
-      </table>
+                  <td className="py-2 px-2 font-medium border-r-1 border-gray-700 text-green-400">{fii.papel}</td>
+                  <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarMoeda(fii.cotacao)}</td>
+                  <td
+                    className={`py-2 px-2 border-r-1 border-gray-700 font-['Inter'] ${
+                      fii.DY >= 8 && fii.DY <= 13 ? "text-green-400" : "text-yellow-400"
+                    }`}
+                  >
+                    {fii.DY}%
+                  </td>
+                  <td
+                    className={`py-2 px-2 border-r-1 border-gray-700 font-['Inter'] ${
+                      fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-400" : "text-yellow-400"
+                    }`}
+                  >
+                    {fii.PVP}
+                  </td>
+                  <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarMoeda(fii.liquidez)}</td>
+                  <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{fii.qtdImoveis}</td>
+                  <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">
+                    {formatarNumero(fii.vacanciaMedia)}%
+                  </td>
+                  <td
+                    className={`py-2 px-2 ${
+                      fii.segmento === "Logistica"
+                        ? "text-[#10B981]"
+                        : fii.segmento === "Shoppings"
+                          ? "text-[#3B82F6]"
+                          : fii.segmento === "Titulos e Val. Mob."
+                            ? "text-[#F59E0B]"
+                            : fii.segmento === "Hibrido"
+                              ? "text-[#8B5CF6]"
+                              : fii.segmento === "Lajes Corporativas"
+                                ? "text-[#EF4444]"
+                                : "text-white"
+                    }`}
+                  >
+                    {fii.segmento}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
+        </table>
+      </div>
 
-      {/* Pagination Controls */}
+      {/* Mobile Table */}
+      <div className="md:hidden">
+        <div
+          className={`w-full p-3 ${
+            loading ? "bg-gray-500" : fiis.length > 0 && fiis[0].error ? "bg-red-500" : "bg-green-500"
+          } text-white rounded-t-lg`}
+        >
+          {loading ? (
+            <p className="text-center">Carregando...</p>
+          ) : fiis.length > 0 && fiis[0].error ? (
+            <p className="text-center">Não há FIIs com esses filtros</p>
+          ) : fiis.length > 0 ? (
+            <div className="flex justify-between items-center">
+              <p>{fiis.length} FIIs encontrados</p>
+              <DownloadTableExcel filename="FIIs_filtrados" sheet="dados" currentTableRef={tableRef.current}>
+                <button className="flex items-center gap-1 hover:text-green-900 transition-all duration-300">
+                  <FaRegSave /> Exportar
+                </button>
+              </DownloadTableExcel>
+            </div>
+          ) : (
+            <p className="text-center">Nenhum FII encontrado</p>
+          )}
+        </div>
+
+        {fiis.length > 0 && !fiis[0].error && (
+          <div className="space-y-3 mt-2">
+            {currentFiis.map((fii, index) => (
+              <div key={fii.papel} className="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden">
+                <div className="flex justify-between items-center p-3 cursor-pointer" onClick={() => toggleRow(index)}>
+                  <div className="flex items-center gap-3">
+                    <span className="text-green-400 font-medium">{fii.papel}</span>
+                    <span className="text-white">{formatarMoeda(fii.cotacao)}</span>
+                  </div>
+                  <ChevronDown
+                    className={`text-gray-400 transition-transform duration-300 ${
+                      expandedRow === index ? "transform rotate-180" : ""
+                    }`}
+                  />
+                </div>
+
+                {expandedRow === index && (
+                  <div className="px-3 pb-3 pt-1 border-t border-gray-700">
+                    <table className="w-full text-sm">
+                      <tbody>
+                        <tr>
+                          <td className="py-1 text-gray-400">DY:</td>
+                          <td
+                            className={`py-1 text-right ${
+                              fii.DY >= 8 && fii.DY <= 13 ? "text-green-400" : "text-yellow-400"
+                            }`}
+                          >
+                            {fii.DY}%
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="py-1 text-gray-400">P/VP:</td>
+                          <td
+                            className={`py-1 text-right ${
+                              fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-400" : "text-yellow-400"
+                            }`}
+                          >
+                            {fii.PVP}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="py-1 text-gray-400">Liquidez:</td>
+                          <td className="py-1 text-right text-white">{formatarMoeda(fii.liquidez)}</td>
+                        </tr>
+                        <tr>
+                          <td className="py-1 text-gray-400">Imóveis:</td>
+                          <td className="py-1 text-right text-white">{fii.qtdImoveis}</td>
+                        </tr>
+                        <tr>
+                          <td className="py-1 text-gray-400">Vacância média:</td>
+                          <td className="py-1 text-right text-white">{formatarNumero(fii.vacanciaMedia)}%</td>
+                        </tr>
+                        <tr>
+                          <td className="py-1 text-gray-400">Segmento:</td>
+                          <td
+                            className={`py-1 text-right ${
+                              fii.segmento === "Logistica"
+                                ? "text-[#10B981]"
+                                : fii.segmento === "Shoppings"
+                                  ? "text-[#3B82F6]"
+                                  : fii.segmento === "Titulos e Val. Mob."
+                                    ? "text-[#F59E0B]"
+                                    : fii.segmento === "Hibrido"
+                                      ? "text-[#8B5CF6]"
+                                      : fii.segmento === "Lajes Corporativas"
+                                        ? "text-[#EF4444]"
+                                        : "text-white"
+                            }`}
+                          >
+                            {fii.segmento}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Pagination Controls - Same for both views */}
       {fiis.length > 0 && !fiis[0].error && totalPages > 1 && (
-        <div className="flex justify-center items-center mt-4 mb-6 ">
-          <div className="flex items-center space-x-2">
+        <div className="flex justify-center items-center mt-4 mb-6 w-full">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             <button
               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 1}
-              className={`p-2 rounded-md ${currentPage === 1 ? "text-gray-400 cursor-not-allowed" : "text-green-400 hover:bg-gray-900"}`}
+              className={`p-2 rounded-md ${
+                currentPage === 1 ? "text-gray-400 cursor-not-allowed" : "text-green-400 hover:bg-gray-900"
+              }`}
               aria-label="Página anterior"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -200,7 +323,9 @@ export default function TableFiis({ loading, fiis }) {
             <button
               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className={`p-2 rounded-md ${currentPage === totalPages ? "text-gray-400 cursor-not-allowed" : "text-green-400 hover:bg-gray-900"}`}
+              className={`p-2 rounded-md ${
+                currentPage === totalPages ? "text-gray-400 cursor-not-allowed" : "text-green-400 hover:bg-gray-900"
+              }`}
               aria-label="Próxima página"
             >
               <ChevronRight className="h-5 w-5" />
@@ -218,4 +343,3 @@ export default function TableFiis({ loading, fiis }) {
     </div>
   )
 }
-
