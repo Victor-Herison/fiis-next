@@ -41,7 +41,7 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
               placeholder="0"
               value={filters.dy || ""}
               onChange={(e) => setFilters({ ...filters, dy: e.target.value })}
-              className={`w-50 sm:w-24 md:w-22 xl:w-14 focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
+              className={`w-30 sm:w-24 md:w-22 xl:w-14 focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
                 filters.dy >= 8 && filters.dy <= 13 ? "text-green-600" : "text-amber-600"
               }`}
             />
@@ -63,7 +63,7 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
             placeholder="0"
             value={filters.pvp || ""}
             onChange={(e) => setFilters({ ...filters, pvp: e.target.value })}
-            className={`w-50 sm:w-24 md:w-22 xl:w-14 focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
+            className={`w-30 sm:w-24 md:w-22 xl:w-14 focus:outline-none focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
               filters.pvp >= 0.8 && filters.pvp <= 1.1 ? "text-green-600" : "text-amber-600"
             }`}
           />
