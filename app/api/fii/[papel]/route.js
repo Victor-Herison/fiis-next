@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import FiiModel from "@/utils/FiiModel";
+import {FiiModel} from "@/utils/schema";
 import connectDB from "@/utils/db";
 
 export async function GET(req, { params }) {
