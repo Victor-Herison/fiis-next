@@ -49,7 +49,7 @@ export default function Header() {
             Calculadora
           </Link>
           <Link
-            href="/wait"
+            href="/artigos"
             className="hover:cursor-pointer hover:scale-110 hover:text-[#F59E0B] transition-all duration-300"
           >
             Artigos
