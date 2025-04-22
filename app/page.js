@@ -4,10 +4,10 @@
 import { useState, useEffect, useRef } from "react";
 //components, UI, utils
 import Aviso from "@/components/Aviso";
-import { FIIsDropdown } from "@/components/FIIsDropdown";
+import { FIIsDropdown } from "@/components/fiis/FIIsDropdown";
 
-import FiltersForm from "@/components/FiltersForm";
-import TableFiis from '@/components/TableFiis';
+import FiltersForm from "@/components/fiis/FiltersForm";
+import TableFiis from '@/components/fiis/TableFiis';
 
 
 export default function Home() {

@@ -2,6 +2,15 @@ import { NextResponse } from 'next/server';
 import connectDB from "@/utils/db";
 import { ArticleModel } from '@/utils/schema';
 
+export async function GET() {
+  await connectDB();
+
+  const articles = await ArticleModel.find(); // array de artigos
+
+  return NextResponse.json(articles); // <-- retorna array puro
+}
+
+
 export async function POST(req) {
     await connectDB();
   

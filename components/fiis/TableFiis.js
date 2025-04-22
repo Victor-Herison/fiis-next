@@ -4,7 +4,7 @@ import { DownloadTableExcel } from "react-export-table-to-excel"
 import { useRef, useState } from "react"
 import { FaRegSave } from "react-icons/fa"
 import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
-import ErrorFilter from "@/components/ErrorFilter"
+import ErrorFilter from "@/components/fiis/ErrorFilter"
 import { formatarMoeda, formatarNumero } from "@/utils/format"
 
 const fiiPerPage = 10
