@@ -1,6 +1,5 @@
 import connectDB from "@/utils/db";
-import { FiiModel } from "@/utils/schema";
-
+import {FiiModel} from "@/utils/schema"; // Importa o modelo de FII
 
 async function getAllFiis() {
     try {

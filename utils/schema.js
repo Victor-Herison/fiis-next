@@ -16,4 +16,14 @@ const FiiSchema = new mongoose.Schema({
     vacanciaMedia: Number,
 }, { timestamps: true });
 
+const articleSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    text: String,
+    date: Date,
+}, { timestamps: true });
+
+
 export const FiiModel = mongoose.models.Fii || mongoose.model("Fii", FiiSchema);
+export const ArticleModel = mongoose.models.Article || mongoose.model("Article", articleSchema);
+

@@ -82,11 +82,11 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
             value={filters.segmento}
             onChange={(e) => setFilters({ ...filters, segmento: e.target.value })}
             className={`focus:outline-none cursor-pointer focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
-              filters.segmento === "Logistica"
+              filters.segmento === "Logistico"
                 ? "text-emerald-600"
-                : filters.segmento === "Shoppings"
+                : filters.segmento === "Shopping/Varejo"
                 ? "text-blue-600"
-                : filters.segmento === "Titulos e Val. Mob."
+                : filters.segmento === "Recebiveis Imobiliarios"
                 ? "text-amber-600"
                 : filters.segmento === "Hibrido"
                 ? "text-purple-600"
@@ -98,11 +98,11 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
             }`}
           >
             <option value="">Todos segmentos</option>
-            <option value="Shoppings" className="text-blue-600">
-              Shoppings
+            <option value="Shopping/Varejo" className="text-blue-600">
+            Shopping/Varejo
             </option>
-            <option value="Logistica" className="text-emerald-600">
-              Logística
+            <option value="Logístico" className="text-emerald-600">
+              Logístico
             </option>
             <option value="Titulos e Val. Mob." className="text-amber-600">
               Títulos e Val. Mob
