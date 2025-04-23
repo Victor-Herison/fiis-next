@@ -21,7 +21,7 @@ export async function POST(req) {
     }
   
     try {
-      const { title, description, text, date } = await req.json();
+      const { title, description, category, text, date } = await req.json();
       const newArticle = new ArticleModel({ title, description, category, text, date });
       await newArticle.save();
   
