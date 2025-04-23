@@ -20,6 +20,7 @@ const articleSchema = new mongoose.Schema({
     title: String,
     description: String,
     text: String,
+    category: String,
     date: Date,
 }, { timestamps: true });
 
