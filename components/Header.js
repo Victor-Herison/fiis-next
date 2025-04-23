@@ -81,7 +81,7 @@ export default function Header() {
               Calculadora
             </Link>
             <Link
-              href="/wait"
+              href="/artigos"
               className="text-white hover:text-[#F59E0B] transition-all duration-300"
               onClick={toggleMenu}
             >

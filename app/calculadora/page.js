@@ -65,8 +65,8 @@ export default function InvestmentCalculator() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4">
-      <h1 className="text-4xl font-normal text-center mb-8">Calculadora de investimentos</h1>
+    <div className="min-h-screen bg-gray-900 py-12 px-4">
+      <h1 className="text-4xl font-normal text-center mb-8 text-white">Calculadora de investimentos</h1>
 
       <Card className="max-w-4xl mx-auto p-8 bg-gray-50 shadow-md rounded-xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
