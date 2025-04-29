@@ -12,7 +12,7 @@ export default function Footer() {
 
           <ul className="flex gap-6 justify-center">
             <li>
-              <Link href="/wait" className="hover:text-[#F59E0B] transition-all duration-300">
+              <Link href="/about" className="hover:text-[#F59E0B] transition-all duration-300">
                 Sobre
               </Link>
             </li>
@@ -45,12 +45,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/wait" className="hover:text-[#F59E0B] transition-all duration-300">
+                <Link href="/" className="hover:text-[#F59E0B] transition-all duration-300">
                   Contato
                 </Link>
               </li>
               <li>
-                <Link href="/wait" className="hover:text-[#F59E0B] transition-all duration-300">
+                <Link href="/" className="hover:text-[#F59E0B] transition-all duration-300">
                   Doe
                 </Link>
               </li>
@@ -64,7 +64,7 @@ export default function Footer() {
 
         {/* Desktop layout (single row) */}
         <div className="hidden lg:flex justify-between items-center">
-          <Link href="/wait" className="text-xl font-bold hover:text-[#F59E0B] transition-all duration-300">
+          <Link href="/" className="text-xl font-bold hover:text-[#F59E0B] transition-all duration-300">
             NewBoy
           </Link>
 
@@ -72,17 +72,17 @@ export default function Footer() {
 
           <ul className="flex gap-6">
             <li>
-              <Link href="/wait" className="hover:text-[#F59E0B] transition-all duration-300">
+              <Link href="/about" className="hover:text-[#F59E0B] transition-all duration-300">
                 Sobre
               </Link>
             </li>
             <li>
-              <Link href="/wait" className="hover:text-[#F59E0B] transition-all duration-300">
+              <Link href="/" className="hover:text-[#F59E0B] transition-all duration-300">
                 Contato
               </Link>
             </li>
             <li>
-              <Link href="/wait" className="hover:text-[#F59E0B] transition-all duration-300">
+              <Link href="/" className="hover:text-[#F59E0B] transition-all duration-300">
                 Doe
               </Link>
             </li>
