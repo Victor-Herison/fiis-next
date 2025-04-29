@@ -15,7 +15,8 @@ function page() {
   <section className="max-w-3xl w-full mb-8">
     <h2 className="text-xl font-semibold mb-2">🎯 Qual a função do projeto?</h2>
     <p className="text-gray-700">
-      Ajudar investidores a encontrarem oportunidades de investimento em FIIs através de filtros personalizados e dados atualizados de diferentes fontes confiáveis.
+      Ajudar investidores a encontrarem oportunidades de investimento em FIIs através de filtros personalizados e dados atualizados de diferentes fontes confiáveis. A principio o projeto surgiu para
+      poder automatizar o processo de filtro que geralmente é feito em planilhas, mas pretendo adicionar algumas ultilidades (que as vezes são pagas em algumas plataformas) de forma gratuita e o mais autentica possível.
     </p>
   </section>
 
@@ -31,7 +32,8 @@ function page() {
   <section className="max-w-3xl w-full mb-8">
     <h2 className="text-xl font-semibold mb-2">📊 De onde vêm os dados?</h2>
     <p className="text-gray-700">
-      Os dados são coletados automaticamente de fontes públicas como o site Fundamentus e o ClubeFII. Eles são cruzados e organizados para exibir as informações mais relevantes.
+      Os dados são coletados automaticamente de fontes públicas como o site Fundamentus e o ClubeFII. Eles são cruzados e organizados para exibir as informações mais relevantes. Informo que os
+      dados coletados são apenas dados já disponíveis publicamente e não são de minha propriedade. O projeto não tem fins lucrativos e é apenas uma ferramenta para facilitar a vida dos investidores.
     </p>
   </section>
 
@@ -55,7 +57,10 @@ function page() {
   <section className="max-w-3xl w-full mb-8">
     <h2 className="text-xl font-semibold mb-2">👨‍💻 Quem desenvolveu?</h2>
     <p className="text-gray-700">
-      Este projeto foi idealizado e desenvolvido por Victor Herison. É um projeto pessoal, voltado à comunidade de investidores que desejam uma ferramenta simples e poderosa.
+      Você deve ter percebido que nessa pagina alguns verbos e pronomes estão em primeira pessoa. Bem, 
+      meu nome é Victor Herison e sou o desenvolvedor desse projeto. 
+       Esse é um projeto pessoal, voltado à comunidade com a intenção de automatizar todo um jogo de planilha que precisa ser feito para filtrar os "melhores" Fiis. Posteriomente, conforme for investindo meu tempo
+       no projeto, e conforme os feedbacks forem aparecendo, pretendo adicionar mais funcionalidades e ferramentas para facilitar a vida dos investidores.
     </p>
   </section>
 </div>
