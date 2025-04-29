@@ -3,8 +3,12 @@
 import { DownloadTableExcel } from "react-export-table-to-excel"
 import { useRef, useState } from "react"
 import { FaRegSave } from "react-icons/fa"
-import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
+import { ChevronLeft, ChevronRight, ChevronDown, HelpCircle } from "lucide-react"
+//component
 import ErrorFilter from "@/components/fiis/ErrorFilter"
+import ToolTipHook from "../ToolTipHook"
+
+//utils
 import { formatarMoeda, formatarNumero } from "@/utils/format"
 
 const fiiPerPage = 10
@@ -118,14 +122,14 @@ export default function TableFiis({ loading, fiis }) {
               </th>
             </tr>
             <tr className="h-15 text-center text-lg text-white">
-              <th className="w-[12%] text-base px-2">Papel</th>
-              <th className="w-[12%] text-base px-2">Cotação</th>
-              <th className="w-[12%] text-base px-2">DY</th>
-              <th className="w-[12%] text-base px-2">P/VP</th>
-              <th className="w-[12%] text-base px-2">Liquidez</th>
-              <th className="w-[12%] text-base px-2">Imóveis</th>
-              <th className="w-[12%] text-base px-2">Vacância média</th>
-              <th className="w-[12%] text-base px-2">Segmento</th>
+              <th className=" text-base  px-2">Papel <ToolTipHook content={'Ticker do fundo, caso você queira pesquisar sobre o fundo basta copiar esse ticker e colar no seu motor de buscar predileto.'}/></th>
+              <th className=" text-base">Cotação <ToolTipHook content={'Valor de uma cota do fundo'}/></th>
+              <th className=" text-base px-2">DY <ToolTipHook content={'Quanto de dividendo o fundo ta pagando em comparação com o valor de uma cota.'}/></th>
+              <th className=" text-base px-2">P/VP <ToolTipHook content={'Preço da cota sobre o valor patrimonial.'} className="mt-"/></th>
+              <th className=" text-base px-2">Liquidez <ToolTipHook content={'Fluxo de venda e compra do fundo por dia.'}/></th>
+              <th className=" text-base px-2">FFO Yield <ToolTipHook content={'Lucro operacional em relação ao preço da cota. Indica o retorno "real" gerado pelo fundo.'}/></th>
+              <th className=" text-base px-2">Valor de Mercado</th>
+              <th className=" text-base px-2">Segmento</th>
             </tr>
           </thead>
           {fiis.length > 0 && fiis[0].error ? (
@@ -135,9 +139,9 @@ export default function TableFiis({ loading, fiis }) {
               {currentFiis.map((fii) => (
                 <tr
                   key={fii.papel}
-                  className="text-center text-lg text-white bg-gray-800 border-b-1 border-gray-700 hover:bg-gray-900 transition-all duration-300"
+                  className="font-medium text-center text-lg text-white bg-gray-800 border-b-1 border-gray-700 hover:bg-gray-900 transition-all duration-300"
                 >
-                  <td className="py-2 px-2 font-medium border-r-1 border-gray-700 text-green-400">{fii.papel}</td>
+                  <td className="py-2 px-2 font-bold border-r-1 border-gray-700 text-green-400">{fii.papel}</td>
                   <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarMoeda(fii.cotacao)}</td>
                   <td
                     className={`py-2 px-2 border-r-1 border-gray-700 font-['Inter'] ${
@@ -153,23 +157,34 @@ export default function TableFiis({ loading, fiis }) {
                   >
                     {fii.PVP}
                   </td>
-                  <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarMoeda(fii.liquidez)}</td>
-                  <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{fii.qtdImoveis}</td>
+                  <td className="py-2 px-2 border-r-1 border-gray-700 font-['Open Sans-Serif']">{formatarMoeda(fii.liquidez)}</td>
+                  <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{fii.FFOYield}</td>
                   <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">
-                    {formatarNumero(fii.vacanciaMedia)}%
+                    {formatarMoeda(fii.valorMercado)}
                   </td>
                   <td
-                    className={`py-2 px-2 ${
-                      fii.segmento === "Logistica"
-                        ? "text-[#10B981]"
-                        : fii.segmento === "Shoppings"
-                          ? "text-[#3B82F6]"
+                    className={`py-2 px-2 font-bold ${
+                      fii.segmento === "Logisticos"
+                        ? "text-emerald-300"
+                        : fii.segmento === "Shopping/Varejo"
+                          ? "text-blue-300"
                           : fii.segmento === "Titulos e Val. Mob."
-                            ? "text-[#F59E0B]"
-                            : fii.segmento === "Hibrido"
-                              ? "text-[#8B5CF6]"
+                            ? "text-amber-600"
+                            : fii.segmento === "Híbrido"
+                              ? "text-purple-300"
                               : fii.segmento === "Lajes Corporativas"
-                                ? "text-[#EF4444]"
+                              ? "text-pink-300"
+                              : fii.segmento === "Recebíveis Imobiliários"
+                                ? "text-cyan-300"
+                                : fii.segmento === "Agencias Bancárias"
+                                ? "text-orange-300"
+                                : fii.segmento === "FIAGRO"
+                                ? "text-lime-300"
+                                : fii.segmento === "Fundo de Fundos"
+                                ? "text-teal-300"
+                                : fii.segmento === "Lajes Comerciais"
+                                ? "text-rose-300"
+                                
                                 : "text-white"
                     }`}
                   >

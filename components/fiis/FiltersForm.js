@@ -82,18 +82,30 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
             value={filters.segmento}
             onChange={(e) => setFilters({ ...filters, segmento: e.target.value })}
             className={`focus:outline-none cursor-pointer focus:ring-1 focus:ring-green-500 rounded px-2 py-1 ${
-              filters.segmento === "Logistico"
+              filters.segmento === "Logisticos"
                 ? "text-emerald-600"
                 : filters.segmento === "Shopping/Varejo"
                 ? "text-blue-600"
                 : filters.segmento === "Recebiveis Imobiliarios"
                 ? "text-amber-600"
-                : filters.segmento === "Hibrido"
+                : filters.segmento === "Híbrido"
                 ? "text-purple-600"
                 : filters.segmento === "Lajes Corporativas"
-                ? "text-red-600"
+                ? "text-pink-600"
                 : filters.segmento === "Outros"
                 ? "text-blue-600"
+                : filters.segmento === "Recebíveis Imobiliários"
+                ? "text-cyan-600"
+                : filters.segmento === "Agencias Bancárias"
+                ? "text-orange-600"
+                : filters.segmento === "FIAGRO"
+                ? "text-lime-600"
+                : filters.segmento === "Lajes Comerciais"
+                ? "text-rose-700"
+                : filters.segmento === "Fundo de Fundos"
+                ? "text-teal-600"
+                : filters.segmento === "Titulos e Val. Mob."
+                ? "text-amber-600"
                 : "text-gray-700"
             }`}
           >
@@ -101,18 +113,34 @@ export default function FiltersForm({ filters, setFilters, handleSubmit, loading
             <option value="Shopping/Varejo" className="text-blue-600">
             Shopping/Varejo
             </option>
-            <option value="Logístico" className="text-emerald-600">
-              Logístico
+            <option value="Logisticos" className="text-emerald-600">
+            Logisticos
             </option>
             <option value="Titulos e Val. Mob." className="text-amber-600">
-              Títulos e Val. Mob
+              Títulos e Val. Mob.
             </option>
-            <option value="Hibrido" className="text-purple-600">
+            <option value="Recebíveis Imobiliários" className="text-cyan-600">
+            Recebíveis Imobiliários
+            </option>
+            <option value="Híbrido" className="text-purple-700">
               Híbrido
             </option>
-            <option value="Lajes Corporativas" className="text-red-600">
+            <option value="Lajes Corporativas" className="text-pink-600">
               Lajes Corporativas
             </option>
+            <option value="Agencias Bancárias" className="text-orange-600">
+            Agencias Bancárias
+            </option>
+            <option value="FIAGRO" className="text-lime-600">
+            FIAGRO
+            </option>
+            <option value="Fundo de Fundos" className="text-teal-600">
+            Fundo de Fundos
+            </option>
+            <option value="Lajes Comerciais" className="text-rose-700">
+            Lajes Comerciais
+            </option>
+            
             <option value="Outros" className="text-gray-700">
               Outros
             </option>

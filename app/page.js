@@ -19,8 +19,6 @@ export default function Home() {
         pvp: 1,
         segmento:"",
         liquidez: 1500000,
-        vacancia: 10,
-        qtdImoveis:0
     });
 
     
@@ -41,7 +39,7 @@ export default function Home() {
 
         let url = search.length > 5
             ? `/api/fii/${search.toUpperCase()}`
-            : `/api/fii?dy=${filters.dy}&pvp=${filters.pvp}&segmento=${filters.segmento}&liquidez=${filters.liquidez}&vacancia=${filters.vacancia}&qtdImoveis=${filters.qtdImoveis}`;
+            : `/api/fii?dy=${filters.dy}&pvp=${filters.pvp}&segmento=${filters.segmento}&liquidez=${filters.liquidez}`;
         
 
         try {

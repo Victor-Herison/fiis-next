@@ -21,22 +21,18 @@ async function fillterFiis(fiis, segmento, dy, pvp, liquidez, vacancia, qtdImove
     // Filtra os FIIs com base nos critérios fornecidos
  
     if(segmento){
+        console.log(segmento === "Titulos e Val. Mob.")
         return fiis.filter(fii =>
            ( fii.segmento === segmento) &&
             fii.DY >= parseFloat(dy) &&// DY maior que 8%
             fii.PVP <= parseFloat(pvp) &&           // P/VP menor que 1
-            fii.liquidez > liquidez &&  // Liquidez acima de 1M
-           
-            fii.vacanciaMedia <= parseFloat(vacancia) && // Vacância menor que 10%
-            fii.qtdImoveis >= parseFloat(qtdImoveis) // Qtd de imóveis acima de 0
+            fii.liquidez > liquidez
         );
     }else{
         return fiis.filter(fii =>
             fii.DY >= parseFloat(dy) &&// DY maior que 8%
             fii.PVP <= parseFloat(pvp) &&         // P/VP menor que 1
-            fii.liquidez >= liquidez  &&// Valor de mercado acima de 0
-            fii.vacanciaMedia < parseFloat(vacancia) && // Vacância menor que 10%
-            fii.qtdImoveis >= parseFloat(qtdImoveis) // Qtd de imóveis acima de 0
+            fii.liquidez >= liquidez
          );
     }
 }
@@ -60,10 +56,9 @@ export async function GET(req) {
         const dy = searchParams.get("dy");
         const pvp = searchParams.get("pvp");
         const liquidez = searchParams.get("liquidez");
-        const vacancia = searchParams.get("vacancia");
-        const qtdImoveis = searchParams.get("qtdImoveis");
+       
 
-        const filteredFiis = await fillterFiis(fiis, segmento, dy, pvp, liquidez, vacancia, qtdImoveis);
+        const filteredFiis = await fillterFiis(fiis, segmento, dy, pvp, liquidez);
 
         if(filteredFiis.length){
             return Response.json(sortFiis(filteredFiis));
