@@ -185,7 +185,7 @@ export default function TableFiis({ loading, fiis }) {
                                 : fii.segmento === "Lajes Comerciais"
                                 ? "text-rose-300"
                                 
-                                : "text-white"
+                                : "text-yellow-200"
                     }`}
                   >
                     {fii.segmento}

@@ -40,7 +40,7 @@ export default function Footer() {
 
             <ul className="flex gap-6">
               <li>
-                <Link href="/wait" className="hover:text-[#F59E0B] transition-all duration-300">
+                <Link href="/about" className="hover:text-[#F59E0B] transition-all duration-300">
                   Sobre
                 </Link>
               </li>
