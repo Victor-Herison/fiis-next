@@ -17,7 +17,7 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/wait" className="hover:text-[#F59E0B] transition-all duration-300">
+              <Link href="/mailto:victorherisondev@gmail.com" className="hover:text-[#F59E0B] transition-all duration-300">
                 Contato
               </Link>
             </li>
@@ -45,7 +45,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/" className="hover:text-[#F59E0B] transition-all duration-300">
+                <Link href="mailto:victorherisondev@gmail.com?subject=Contato%20sobre%20o%20projeto&body=Olá%20Victor%2C%20tenho%20uma%20dúvida%20sobre..." className="hover:text-[#F59E0B] transition-all duration-300">
                   Contato
                 </Link>
               </li>
@@ -77,7 +77,7 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/" className="hover:text-[#F59E0B] transition-all duration-300">
+              <Link  href="/contact" className="hover:text-[#F59E0B] transition-all duration-300">
                 Contato
               </Link>
             </li>
