@@ -22,8 +22,8 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/doe" className="hover:text-[#F59E0B] transition-all duration-300">
-                Doe
+              <Link href="/donate" className="hover:text-[#F59E0B] transition-all duration-300">
+                doe
               </Link>
             </li>
           </ul>
@@ -50,8 +50,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/doe" className="hover:text-[#F59E0B] transition-all duration-300">
-                  Doe
+                <Link href="/donate" className="hover:text-[#F59E0B] transition-all duration-300">
+                  doe
                 </Link>
               </li>
             </ul>
@@ -82,7 +82,7 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/doe" className="hover:text-[#F59E0B] transition-all duration-300">
+              <Link href="/donate" className="hover:text-[#F59E0B] transition-all duration-300">
                 Doe
               </Link>
             </li>
