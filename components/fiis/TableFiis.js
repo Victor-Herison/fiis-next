@@ -158,7 +158,7 @@ export default function TableFiis({ loading, fiis }) {
                     {fii.PVP}
                   </td>
                   <td className="py-2 px-2 border-r-1 border-gray-700 font-['Open Sans-Serif']">{formatarMoeda(fii.liquidez)}</td>
-                  <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{fii.FFOYield}</td>
+                  <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarNumero(fii.FFOYield)}%</td>
                   <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">
                     {formatarMoeda(fii.valorMercado)}
                   </td>
