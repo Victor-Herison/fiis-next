@@ -37,13 +37,13 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex gap-8 text-white text-center items-center text-xl">
           <Link
-            href="/wait"
+            href="/"
             className="hover:cursor-pointer hover:scale-110 hover:text-[#F59E0B] transition-all duration-300"
           >
             Filtros
           </Link>
           <Link
-            href="/calculadora"
+            href="/calculator"
             className="hover:cursor-pointer hover:scale-110 hover:text-[#F59E0B] transition-all duration-300"
           >
             Calculadora
@@ -54,9 +54,7 @@ export default function Header() {
           >
             Artigos
           </Link>
-          <button className="bg-white text-black px-6 py-2 rounded-md hover:cursor-pointer hover:bg-[#F59E0B] transition-all duration-300 hover:text-white ml-4">
-            Entrar
-          </button>
+          
         </nav>
 
         {/* Mobile Navigation */}
@@ -74,7 +72,7 @@ export default function Header() {
               Filtros
             </Link>
             <Link
-              href="/calculadora"
+              href="/calculator"
               className="text-white hover:text-[#F59E0B] transition-all duration-300"
               onClick={toggleMenu}
             >
@@ -87,9 +85,6 @@ export default function Header() {
             >
               Artigos
             </Link>
-            <button className="bg-white text-black px-8 py-3 rounded-md hover:bg-[#F59E0B] transition-all duration-300 hover:text-white mt-4">
-              Entrar
-            </button>
           </div>
         </div>
       </div>

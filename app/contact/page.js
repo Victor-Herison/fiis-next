@@ -69,7 +69,7 @@ export default function ContactPage() {
   return (
     <>
     <div className="w-full py-12 px-4 md:px-6">
-      <Card className="w-2xl max-w-2xl shadow-lg mx-auto">
+      <Card className=" max-w-2xl shadow-lg mx-auto">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Entre em contato</CardTitle>
           <CardDescription className="text-center">
