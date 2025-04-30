@@ -47,10 +47,20 @@ function page() {
 
   {/* Contribuições */}
   <section className="max-w-3xl w-full mb-8">
-    <h2 className="text-xl font-semibold mb-2">🤝 Como posso contribuir?</h2>
+    <h2 className="text-xl font-semibold mb-2">🤝 Quais os planos pro futuro?</h2>
     <p className="text-gray-700">
-      Você pode contribuir com ideias, feedbacks ou até código (através do Github). Em breve adicionarei um link para contato e repositório.
+     Pretendo adicionar algumas funcionalidades como:
     </p>
+    <ul className="list-disc list-inside mt-2">
+      <li className="text-gray-700"> Adicionar uma ferramenta de comparação entre FIIs</li>
+      <li className="text-gray-700"> Adicionar filtro de ações</li>
+      <li className="text-gray-700"> Adicionar calculadora do "número mágico" para FIIs</li>
+      <li className="text-gray-700"> Adicionar uma aba de post de artigos para os usuarios</li>
+      <li className="text-gray-700"> Adicionar uma função de salvar filtros</li>
+      <li className="text-gray-700"> Adicionar uma função de favoritar ativos</li>
+      <li className="text-gray-700"> Adicionar uma calculadora de preço teto.</li>
+    </ul>
+    <p>E muito mais. Vou adicionar essa funções com o tempo e com a demanda dos usuarios.</p>
   </section>
 
   {/* Sobre o autor */}
@@ -62,6 +72,7 @@ function page() {
        Esse é um projeto pessoal, voltado à comunidade com a intenção de automatizar todo um jogo de planilha que precisa ser feito para filtrar os "melhores" Fiis. Posteriomente, conforme for investindo meu tempo
        no projeto, e conforme os feedbacks forem aparecendo, pretendo adicionar mais funcionalidades e ferramentas para facilitar a vida dos investidores.
     </p>
+    
   </section>
 </div>
 
