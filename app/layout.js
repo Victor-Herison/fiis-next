@@ -1,3 +1,5 @@
+import { GoogleAnalytics } from '@next/third-parties/google'
+
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -18,8 +20,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <head>
+        
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7395370785593703"
-     crossorigin="anonymous"></script></head>
+        ></script></head>
       <body className="bg-gray-900 p-0 m-0">
         <Header />
         <main>
@@ -29,6 +32,7 @@ export default function RootLayout({ children }) {
         <Footer />
         
         </body>
+        <GoogleAnalytics gaId="G-3P5P0XCVD1" />
         
     </html>
   )
