@@ -1,4 +1,4 @@
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics, GoogleTagManager  } from '@next/third-parties/google'
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Header from "@/components/Header";
@@ -32,6 +32,7 @@ export default function RootLayout({ children }) {
         <Footer />
         
         </body>
+        <GoogleTagManager gtmId="G-3P5P0XCVD1"/>
         <GoogleAnalytics gaId="G-3P5P0XCVD1" />
         
     </html>
