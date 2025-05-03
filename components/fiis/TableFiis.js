@@ -3,7 +3,7 @@
 import { DownloadTableExcel } from "react-export-table-to-excel"
 import { useRef, useState } from "react"
 import { FaRegSave } from "react-icons/fa"
-import { ChevronLeft, ChevronRight, ChevronDown, HelpCircle } from "lucide-react"
+import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
 //component
 import ErrorFilter from "@/components/fiis/ErrorFilter"
 import ToolTipHook from "../ToolTipHook"
@@ -148,14 +148,14 @@ export default function TableFiis({ loading, fiis }) {
                       fii.DY >= 8 && fii.DY <= 13 ? "text-green-400" : "text-yellow-400"
                     }`}
                   >
-                    {fii.DY}%
+                    {formatarNumero(fii.DY)}%
                   </td>
                   <td
                     className={`py-2 px-2 border-r-1 border-gray-700 font-['Inter'] ${
                       fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-400" : "text-yellow-400"
                     }`}
                   >
-                    {fii.PVP}
+                    {formatarNumero(fii.PVP)}
                   </td>
                   <td className="py-2 px-2 border-r-1 border-gray-700 font-['Open Sans-Serif']">{formatarMoeda(fii.liquidez)}</td>
                   <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarNumero(fii.FFOYield)}%</td>
@@ -249,7 +249,7 @@ export default function TableFiis({ loading, fiis }) {
                               fii.DY >= 8 && fii.DY <= 13 ? "text-green-400" : "text-yellow-400"
                             }`}
                           >
-                            {fii.DY}%
+                            {formatarNumero(fii.DY)}%
                           </td>
                         </tr>
                         <tr>
@@ -259,7 +259,7 @@ export default function TableFiis({ loading, fiis }) {
                               fii.PVP >= 0.8 && fii.PVP <= 1.1 ? "text-green-400" : "text-yellow-400"
                             }`}
                           >
-                            {fii.PVP}
+                            {formatarNumero(fii.PVP)}
                           </td>
                         </tr>
                         <tr>
@@ -275,24 +275,51 @@ export default function TableFiis({ loading, fiis }) {
                           <td className="py-1 text-right text-white">{formatarNumero(fii.vacanciaMedia)}%</td>
                         </tr>
                         <tr>
+                          <td className="py-1 text-gray-400">FFO Yield:</td>
+                          <td className="py-1 text-right text-white">{formatarNumero(fii.FFOYield)}%</td>
+                        </tr>
+                        <tr>
+                          <td className="py-1 text-gray-400">Administrador:</td>
+                          <td className="py-1 text-right text-white">{fii.adm}</td>
+                        </tr>
+                        <tr>
+                          <td className="py-1 text-gray-400">Nome:</td>
+                          <td className="py-1 text-right text-white">{fii.nome}</td>
+                        </tr>
+                        <tr>
                           <td className="py-1 text-gray-400">Segmento:</td>
                           <td
                             className={`py-1 text-right ${
-                              fii.segmento === "Logistica"
-                                ? "text-[#10B981]"
-                                : fii.segmento === "Shoppings"
-                                  ? "text-[#3B82F6]"
-                                  : fii.segmento === "Titulos e Val. Mob."
-                                    ? "text-[#F59E0B]"
-                                    : fii.segmento === "Hibrido"
-                                      ? "text-[#8B5CF6]"
-                                      : fii.segmento === "Lajes Corporativas"
-                                        ? "text-[#EF4444]"
-                                        : "text-white"
+                              fii.segmento === "Logisticos"
+                              ? "text-emerald-300"
+                              : fii.segmento === "Shopping/Varejo"
+                                ? "text-blue-300"
+                                : fii.segmento === "Titulos e Val. Mob."
+                                  ? "text-amber-600"
+                                  : fii.segmento === "Híbrido"
+                                    ? "text-purple-300"
+                                    : fii.segmento === "Lajes Corporativas"
+                                    ? "text-pink-300"
+                                    : fii.segmento === "Recebíveis Imobiliários"
+                                      ? "text-cyan-300"
+                                      : fii.segmento === "Agencias Bancárias"
+                                      ? "text-orange-300"
+                                      : fii.segmento === "FIAGRO"
+                                      ? "text-lime-300"
+                                      : fii.segmento === "Fundo de Fundos"
+                                      ? "text-teal-300"
+                                      : fii.segmento === "Lajes Comerciais"
+                                      ? "text-rose-300"
+                                      
+                                      : "text-yellow-200"
                             }`}
                           >
                             {fii.segmento}
                           </td>
+                        </tr>
+                        <tr>
+                          <td className="py-1 text-gray-400">Saiba mais:</td>
+                          <td className="py-1 text-right underline text-amber-100"><a href={`https://investidor10.com.br/fiis/${fii.papel}`}>Investidor10</a></td>
                         </tr>
                       </tbody>
                     </table>
