@@ -4,12 +4,22 @@ import { DownloadTableExcel } from "react-export-table-to-excel"
 import { useRef, useState } from "react"
 import { FaRegSave } from "react-icons/fa"
 import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
+// Shadcn UI
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 //component
 import ErrorFilter from "@/components/fiis/ErrorFilter"
 import ToolTipHook from "../ToolTipHook"
 
 //utils
-import { formatarMoeda, formatarNumero } from "@/utils/format"
+import { formatarMoeda, formatarNumero, formatDate } from "@/utils/format"
 
 const fiiPerPage = 10
 
@@ -17,6 +27,7 @@ export default function TableFiis({ loading, fiis }) {
   const tableRef = useRef(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [expandedRow, setExpandedRow] = useState(null)
+  const [currentFii, setCurrentFii] = useState([])
 
   // Calculate total pages
   const totalPages = Math.ceil(fiis.length / fiiPerPage)
@@ -90,6 +101,7 @@ export default function TableFiis({ loading, fiis }) {
     <div className="w-full bg-gray-800 overflow-x-auto">
       {/* Desktop Table */}
       <div className="hidden md:block">
+        <Dialog>
         <table ref={tableRef} className="w-full">
           <thead className="bg-gray-700 rounded-t-3xl sticky top-0">
             <tr>
@@ -137,9 +149,13 @@ export default function TableFiis({ loading, fiis }) {
           ) : (
             <tbody className="bg-black">
               {currentFiis.map((fii) => (
+                <DialogTrigger asChild key={fii.papel}>
                 <tr
                   key={fii.papel}
-                  className="font-medium text-center text-lg text-white bg-gray-800 border-b-1 border-gray-700 hover:bg-gray-900 transition-all duration-300"
+                  className="font-medium cursor-pointer text-center text-lg text-white bg-gray-800 border-b-1 border-gray-700 hover:bg-gray-900 transition-all duration-300"
+                  onClick={() => {
+                    setCurrentFii(fii)
+                  }}
                 >
                   <td className="py-2 px-2 font-bold border-r-1 border-gray-700 text-green-400">{fii.papel}</td>
                   <td className="py-2 px-2 border-r-1 border-gray-700 font-['Inter']">{formatarMoeda(fii.cotacao)}</td>
@@ -191,12 +207,62 @@ export default function TableFiis({ loading, fiis }) {
                     {fii.segmento}
                   </td>
                 </tr>
+                </DialogTrigger>
               ))}
             </tbody>
           )}
-        </table>
+          </table>
+          {/* Dialog Content */}
+          <DialogContent>
+            
+              <DialogHeader>
+          <DialogTitle>{currentFii.papel}</DialogTitle>
+          <DialogDescription>
+            A seguir, dados relacionados ao {currentFii.papel}.
+          </DialogDescription>
+        </DialogHeader>
+         <div className="space-y-2 text-sm text-gray-700">
+              <div className="flex justify-between">
+                <span className="font-medium">Dividend Yield:</span>
+                <span>{formatarNumero(currentFii.DY)}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">P/VP:</span>
+                <span>{formatarNumero(currentFii.PVP)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">FFO Yield:</span>
+                <span>{formatarNumero(currentFii.FFOYield)}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Cotação:</span>
+                <span>{formatarMoeda(currentFii.cotacao)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Vacância Média:</span>
+                <span>{formatarNumero(currentFii.vacanciaMedia)}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Segmento:</span>
+                <span>{currentFii.segmento}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Nome:</span>
+                <span>{currentFii.nome}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Administração:</span>
+                <span>{currentFii.adm}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Última atualização:</span>
+                <span>{formatDate(currentFii.updatedAt)}</span>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
-
+          
       {/* Mobile Table */}
       <div className="md:hidden">
         <div

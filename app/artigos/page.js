@@ -1,5 +1,5 @@
 "use client"
-
+import { formatDate } from "@/utils/format"
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Clock, ArrowRight, BookOpen, Loader2 } from "lucide-react"
@@ -29,15 +29,7 @@ export default function ArticlesPage() {
   }, [])
 
   // Função para formatar a data (assumindo que createdAt existe no objeto)
-  const formatDate = (dateString) => {
-    if (!dateString) return ""
-    const date = new Date(dateString)
-    return new Intl.DateTimeFormat("pt-BR", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    }).format(date)
-  }
+ 
 
   // Função para gerar uma cor de categoria baseada no nome da categoria
   const getCategoryColor = (category) => {

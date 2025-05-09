@@ -13,5 +13,14 @@ const formatarNumero = (valor) => {
         maximumFractionDigits: 2
     }).format(valor);
 };
+ const formatDate = (dateString) => {
+    if (!dateString) return ""
+    const date = new Date(dateString)
+    return new Intl.DateTimeFormat("pt-BR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(date)
+  }
 
-export { formatarMoeda, formatarNumero };
+export { formatarMoeda, formatarNumero, formatDate };
