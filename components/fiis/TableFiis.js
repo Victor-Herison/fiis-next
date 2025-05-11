@@ -4,12 +4,13 @@ import { DownloadTableExcel } from "react-export-table-to-excel"
 import { useRef, useState } from "react"
 import { FaRegSave } from "react-icons/fa"
 import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
+
 // Shadcn UI
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
+  
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -20,6 +21,7 @@ import ToolTipHook from "../ToolTipHook"
 
 //utils
 import { formatarMoeda, formatarNumero, formatDate } from "@/utils/format"
+
 
 const fiiPerPage = 10
 
@@ -258,7 +260,16 @@ export default function TableFiis({ loading, fiis }) {
                 <span className="font-medium">Última atualização:</span>
                 <span>{formatDate(currentFii.updatedAt)}</span>
               </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Saiba mais em:</span>
+                <ul>
+                  <li><a href={`https://investidor10.com.br/fiis/${currentFii.papel}`} rel="noreferrer noopener" target="_blank" className="text-amber-600 underline">Investidor 10</a></li>
+                  <li><a href={`https://www.clubefii.com.br/fiis/${currentFii.papel}`} rel="noreferrer noopener" target="_blank" className="text-red-600 underline">Clube Fiis</a></li>
+                  <li><a href={`https://www.fundsexplorer.com.br/funds/${currentFii.papel}`}rel="noreferrer noopener" target="_blank" className="text-blue-600 underline" >Found Explore</a></li>
+                </ul>
+              </div>
             </div>
+            
           </DialogContent>
         </Dialog>
       </div>
