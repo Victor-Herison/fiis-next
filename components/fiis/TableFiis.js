@@ -265,7 +265,7 @@ export default function TableFiis({ loading, fiis }) {
                 <ul>
                   <li><a href={`https://investidor10.com.br/fiis/${currentFii.papel}`} rel="noreferrer noopener" target="_blank" className="text-amber-600 underline">Investidor 10</a></li>
                   <li><a href={`https://www.clubefii.com.br/fiis/${currentFii.papel}`} rel="noreferrer noopener" target="_blank" className="text-red-600 underline">Clube Fiis</a></li>
-                  <li><a href={`https://www.fundsexplorer.com.br/funds/${currentFii.papel}`}rel="noreferrer noopener" target="_blank" className="text-blue-600 underline" >Found Explore</a></li>
+                  <li><a href={`https://www.fundsexplorer.com.br/funds/${currentFii.papel}`}rel="noreferrer noopener" target="_blank" className="text-blue-600 underline" >Funds Explorer</a></li>
                 </ul>
               </div>
             </div>
