@@ -26,7 +26,9 @@ export default function RootLayout({ children }) {
         </head>
       <body className="bg-gray-900 p-0 m-0" suppressHydrationWarning>
         <Header />
-        <ins className="adsbygoogle block"
+       
+        <main>   
+           <ins className="adsbygoogle block"
               
               data-ad-client="ca-pub-7395370785593703"
               data-ad-slot="6442136295"
@@ -34,8 +36,7 @@ export default function RootLayout({ children }) {
               data-full-width-responsive="true"></ins>
           <script>
               (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        <main>      
+          </script>   
           
           {children}
           <SpeedInsights />
