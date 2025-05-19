@@ -65,7 +65,7 @@ export default function Header() {
         >
           <div className="flex flex-col items-center justify-center h-full gap-8 text-xl">
             <Link
-              href="/wait"
+              href="/"
               className="text-white hover:text-[#F59E0B] transition-all duration-300"
               onClick={toggleMenu}
             >
