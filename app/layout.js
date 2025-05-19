@@ -22,10 +22,20 @@ export default function RootLayout({ children }) {
       <head>
       <meta name="google-site-verification" content="gOdsY24DgZ0uxVIJS-chvNIVGeWDe_iajLtBz7ZONKI" />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7395370785593703"
-        ></script></head>
+        crossorigin="anonymous"></script>
+        </head>
       <body className="bg-gray-900 p-0 m-0" suppressHydrationWarning>
         <Header />
-        <main>
+        <main>      
+          <ins className="adsbygoogle block"
+              
+              data-ad-client="ca-pub-7395370785593703"
+              data-ad-slot="6442136295"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
+          <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
           {children}
           <SpeedInsights />
         </main>
